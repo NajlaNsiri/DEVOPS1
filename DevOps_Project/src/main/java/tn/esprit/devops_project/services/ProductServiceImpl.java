@@ -1,6 +1,7 @@
 package tn.esprit.devops_project.services;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tn.esprit.devops_project.services.Iservices.IProductService;
@@ -15,6 +16,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Slf4j
+
 public class ProductServiceImpl implements IProductService {
 
    final ProductRepository productRepository;
