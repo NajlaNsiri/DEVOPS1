@@ -1,1 +1,32 @@
+pipeline {
+    agent any
+   
+    stages {
+        stage("Git Clone") {
+            steps {
+                script {
+                    git branch: 'GestionInvoice',
+                        url: 'https://github.com/NajlaNsiri/DEVOPS1.git'
+                }
+            }
+        }
 
+        stage('Nettoyage du projet') {
+            steps {
+                script {
+                    sh 'mvn clean'
+                }
+            }
+        }
+
+        stage('Création du livrable') {
+            steps {
+                script {
+                    sh 'mvn package -DskipTests=true'
+                }
+            }
+        }
+        
+    }
+    
+}
