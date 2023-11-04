@@ -1,31 +1,19 @@
 pipeline {
     agent any
     stages {
-        stage("Git Clone") {
+        stage('Checkout SCM') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Git Clone') {
             steps {
                 script {
-                    git branch: 'GestionInvoice',
-                        url: 'https://github.com/NajlaNsiri/DEVOPS1.git'
+                    dir('DevOps/DevOps_Project') {
+                        sh 'mvn clean'
+                    }
                 }
             }
         }
-
-      stage('Tester maven') {
-    steps {
-        script {
-                sh "mvn -version"    
-        }
     }
-}
-stage('clean maven') {
-    steps {
-        script {
-            dir('DEVOPS1/DevOps_Project')
-            { sh "mvn clean" }    
-        }
-    }
-}
-        
-    }
-    
 }
