@@ -16,7 +16,6 @@ pipeline {
       stage('Tester maven') {
     steps {
         script {
-            dir("DEVOPS1/blob/GestionInvoice/DevOps_Project")
                 sh "mvn -version"
             
         }
@@ -25,7 +24,7 @@ pipeline {
 stage('Clean maven') {
     steps {
         script {
-            dir("../DevOps_Project/")
+             dir("DEVOPS1/blob/GestionInvoice/DevOps_Project")
             {
                 sh "mvn clean"
             } 
