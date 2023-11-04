@@ -9,7 +9,9 @@ pipeline {
         stage('Git Clone') {
             steps {
                 script {
-                    dir('DevOps/DevOps_Project') {
+                    git branch: 'GestionInvoice',
+                    url: 'https://github.com/NajlaNsiri/DEVOPS1.git',
+                    dir('DEVOPS1/DevOps_Project') {
                         sh 'mvn clean'
                     }
                 }
