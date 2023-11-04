@@ -15,5 +15,15 @@ pipeline {
                     }
             }
         }
+          stage('Build') {
+              steps {
+                 script {
+                    dir('DevOps_Project')
+                    {sh 'mvn package -DskipTests=true'}
+                }
+            }
+        }
+
+        
     }
 }
