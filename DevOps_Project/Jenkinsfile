@@ -15,11 +15,20 @@ pipeline {
                     }
             }
         }
+        stage('Test') {
+            steps {
+                script {
+                    dir('DevOps_Project') {
+                        sh 'mvn test'
+                    }
+                }
+            }
+        }
           stage('Build') {
               steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn package -DskipTests=true'}
+                    {sh 'mvn package '}
                 }
             }
         }
