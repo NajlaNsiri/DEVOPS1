@@ -1,1 +1,11 @@
-
+pipeline {
+    agent any
+    stages {
+      stage('Tester maven') {
+    steps {
+        script {
+                sh "mvn -version"   }
+    }
+      }
+    }
+}
