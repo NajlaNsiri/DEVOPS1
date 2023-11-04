@@ -11,14 +11,17 @@ pipeline {
             }
         }
 
-        stage('Nettoyage du projet') {
-            steps {
-                script {
-                   dir('DEVOPS1/DevOps_Project/pom.xml')
-                    {sh 'mvn clean'}
-                }
+       stage('Nettoyage du projet') {
+    steps {
+        script {
+            dir('DEVOPS1/DevOps_Project') {
+                echo "Current directory: ${pwd()}"
+                sh 'ls -la'  // List files in the directory
+                sh 'mvn clean'
             }
-        }   
+        }
+    }
+}
     }
     
 }
