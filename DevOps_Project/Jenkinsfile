@@ -14,21 +14,11 @@ pipeline {
         stage('Nettoyage du projet') {
             steps {
                 script {
-                    dir('DEVOPS1/DevOps_Project/')
+                    cd ('pom.xml')
                     {sh 'mvn clean'}
                 }
             }
-        }
-
-        stage('Création du livrable') {
-            steps {
-                script {
-                    dir('DEVOPS1/DevOps_Project/')
-                    {sh 'mvn package -DskipTests=true'}
-                }
-            }
-        }
-        
+        }   
     }
     
 }
