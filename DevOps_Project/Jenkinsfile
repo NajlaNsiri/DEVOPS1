@@ -14,7 +14,8 @@ pipeline {
         stage('Nettoyage du projet') {
             steps {
                 script {
-                    sh 'mvn clean'
+                    dir('DEVOPS1/DevOps_Project/')
+                    {sh 'mvn clean'}
                 }
             }
         }
@@ -22,7 +23,8 @@ pipeline {
         stage('Création du livrable') {
             steps {
                 script {
-                    sh 'mvn package -DskipTests=true'
+                    dir('DEVOPS1/DevOps_Project/')
+                    {sh 'mvn package -DskipTests=true'}
                 }
             }
         }
