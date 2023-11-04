@@ -14,8 +14,8 @@ pipeline {
         stage('Nettoyage du projet') {
             steps {
                 script {
-                    cd ('pom.xml')
-                    {sh 'mvn clean'}
+                   
+                    sh 'mvn clean'
                 }
             }
         }   
