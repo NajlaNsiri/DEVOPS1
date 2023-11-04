@@ -22,7 +22,15 @@ pipeline {
         }
     }
 }
-
+stage('Clean maven') {
+    steps {
+        script {
+            
+                sh "mvn clean"
+            
+        }
+    }
+}
     }
     
 }
