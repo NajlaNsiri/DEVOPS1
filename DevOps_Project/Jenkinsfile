@@ -7,5 +7,11 @@ pipeline {
                 sh "mvn -version"   }
     }
       }
+        stage('clean Maven') {
+            steps{
+                script{
+                    sh "mvn clean"  }
+            }
+        }
     }
 }
