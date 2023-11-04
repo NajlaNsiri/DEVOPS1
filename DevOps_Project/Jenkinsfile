@@ -17,13 +17,11 @@ pipeline {
         }
     }
 }
-stage('Clean maven') {
+stage('cp') {
     steps {
         script {
-             dir("DEVOPS1/DevOps_Project")
-            {
-                sh "mvn clean"
-            } 
+                sh "mvn package"
+            
         }
     }
 }
