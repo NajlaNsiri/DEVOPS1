@@ -1,8 +1,5 @@
 pipeline {
     agent any
-   tools {
-        maven 'M2_HOME'
-    }
     stages {
         stage("Git Clone") {
             steps {
@@ -16,15 +13,14 @@ pipeline {
       stage('Tester maven') {
     steps {
         script {
-                sh "mvn -version"
-            
+                sh "mvn -version"    
         }
     }
 }
 stage('Clean maven') {
     steps {
         script {
-             dir("DEVOPS1/blob/GestionInvoice/DevOps_Project")
+             dir("DEVOPS1/DevOps_Project")
             {
                 sh "mvn clean"
             } 
