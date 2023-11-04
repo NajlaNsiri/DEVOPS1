@@ -13,12 +13,12 @@ pipeline {
             }
         }
 
-      stage('Nettoyage du projet') {
+      stage('Tester maven') {
     steps {
         script {
-            dir('DEVOPS1/DevOps_Project/') {
-                sh 'mvn clean'
-            }
+            
+                sh "mvn -version"
+            
         }
     }
 }
