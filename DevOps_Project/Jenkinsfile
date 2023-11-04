@@ -17,14 +17,15 @@ pipeline {
         }
     }
 }
-stage('cp') {
+stage('clean maven') {
     steps {
         script {
-                sh "mvn package"
+                sh "mvn clean"
             
         }
     }
 }
+        
     }
     
 }
