@@ -14,7 +14,7 @@ pipeline {
         stage('Nettoyage du projet') {
             steps {
                 script {
-                   dir('DEVOPS1/DevOps_Project')
+                   dir('DEVOPS1/DevOps_Project/pom.xml')
                     {sh 'mvn clean'}
                 }
             }
