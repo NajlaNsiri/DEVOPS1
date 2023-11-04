@@ -10,7 +10,9 @@ pipeline {
         stage('clean Maven') {
             steps{
                 script{
-                    sh "mvn clean"  }
+                    dir('DevOps_Project'){
+                    sh "mvn clean" } 
+                    }
             }
         }
     }
