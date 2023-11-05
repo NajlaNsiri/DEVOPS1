@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -134,5 +135,27 @@ class InvoiceServiceImplTest {
         invoice.setAmountInvoice(500.0f);
         invoice.setArchived(false);
         return invoice;
+    }
+
+    @Test
+    void assignOperatorToInvoice() {
+        // Create a new operator
+        Operator operator = new Operator();
+        operator.setFname("fatma");
+
+        // Mock the operatorRepository save method
+        Mockito.when(operatorRepository.save(Mockito.any(Operator.class))).thenReturn(operator);
+
+        // Create a new invoice
+        Invoice invoice = createSampleInvoices().get(0); // Use one of the sample invoices
+
+        // Execute the method to assign the operator to the invoice
+        iInvoiceService.assignOperatorToInvoice(operator.getIdOperateur(), invoice.getIdInvoice());
+
+        // Verify that the operatorRepository save method was called with the correct operator
+        Mockito.verify(operatorRepository).save(operator);
+
+        // Verify that the operator is now associated with the invoice
+        assertTrue(operator.getInvoices().contains(invoice));
     }
 }
