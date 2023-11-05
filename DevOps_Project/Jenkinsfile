@@ -57,12 +57,6 @@ pipeline {
                 }
             }
         }
-        
-            //stage("Push Image to Docker Hub") {
-            //steps {
-              //  sh 'docker push fatma721/devops_project:latest'
-            //}
-        //}
 
         stage('SONARQUBE') {
             steps {
