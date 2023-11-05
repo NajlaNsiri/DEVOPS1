@@ -55,7 +55,6 @@ pipeline {
             }
         }
                 
-        stages {
         stage("Docker Run SonarQube") {
             steps {
                 script {
@@ -63,7 +62,7 @@ pipeline {
                 }
             }
         }
-     }
+     
         
 }
 }
