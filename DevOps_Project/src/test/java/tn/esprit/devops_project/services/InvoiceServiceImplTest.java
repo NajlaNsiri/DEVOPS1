@@ -100,6 +100,7 @@ class InvoiceServiceImplTest {
 
         // Create a few sample invoices
         Invoice invoice1 = new Invoice();
+        invoice1.setIdInvoice(1L);
         invoice1.setAmountDiscount(100.0f);
         invoice1.setAmountInvoice(500.0f);
         invoice1.setDateCreationInvoice(new Date()); // You can set the desired date
@@ -107,6 +108,7 @@ class InvoiceServiceImplTest {
         invoice1.setArchived(false);
 
         Invoice invoice2 = new Invoice();
+        invoice1.setIdInvoice(2L);
         invoice2.setAmountDiscount(50.0f);
         invoice2.setAmountInvoice(300.0f);
         invoice2.setDateCreationInvoice(new Date()); // You can set the desired date
@@ -114,6 +116,7 @@ class InvoiceServiceImplTest {
         invoice2.setArchived(false);
 
         Invoice invoice3 = new Invoice();
+        invoice1.setIdInvoice(3L);
         invoice3.setAmountDiscount(75.0f);
         invoice3.setAmountInvoice(700.0f);
         invoice3.setDateCreationInvoice(new Date()); // You can set the desired date
