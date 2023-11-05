@@ -150,7 +150,7 @@ class InvoiceServiceImplTest {
         Mockito.when(operatorRepository.save(Mockito.any(Operator.class))).thenReturn(operator);
 
         // Create a new invoice
-        Invoice invoice = createSampleInvoices().get(0); // Use one of the sample invoices
+        Invoice invoice = createSampleInvoices().get(1); // Use one of the sample invoices
 
         // Execute the method to assign the operator to the invoice
         iInvoiceService.assignOperatorToInvoice(operator.getIdOperateur(), invoice.getIdInvoice());
