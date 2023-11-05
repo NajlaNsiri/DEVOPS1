@@ -36,10 +36,10 @@ class InvoiceServiceImplTest {
     @Autowired
     IInvoiceService iInvoiceService;
 
-    @MockBean
+    @Mock
     private OperatorRepository operatorRepository;
 
-    @MockBean
+    @Mock
     private InvoiceRepository invoiceRepository;
 
     @BeforeEach
@@ -151,19 +151,26 @@ class InvoiceServiceImplTest {
         Operator operator = new Operator();
         operator.setFname("fatma");
 
-        // Mock the operatorRepository save method
-        Mockito.when(operatorRepository.save(Mockito.any(Operator.class))).thenReturn(operator);
-
         // Create a new invoice
         Invoice invoice = createSampleInvoices().get(0); // Use one of the sample invoices
 
+        // Mock the operatorRepository findById method
+        when(operatorRepository.findById(eq(1L))).thenReturn(Optional.of(operator));
+        // Mock the invoiceRepository findById method
+        when(invoiceRepository.findById(eq(1L))).thenReturn(Optional.of(invoice));
+
         // Execute the method to assign the operator to the invoice
-        iInvoiceService.assignOperatorToInvoice(operator.getIdOperateur(), invoice.getIdInvoice());
+        iInvoiceService.assignOperatorToInvoice(1L, 1L);
 
-        // Verify that the operatorRepository save method was called with the correct operator
-        Mockito.verify(operatorRepository).save(operator);
-
+        // Verify that the operatorRepository findById method was called with the correct operator id
+        verify(operatorRepository).findById(1L);
+        // Verify that the invoiceRepository findById method was called with the correct invoice id
+        verify(invoiceRepository).findById(1L);
         // Verify that the operator is now associated with the invoice
         assertTrue(operator.getInvoices().contains(invoice));
     }
+
+
+
+
 }
