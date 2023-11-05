@@ -106,6 +106,7 @@ class InvoiceServiceImplTest {
         invoice1.setDateCreationInvoice(new Date()); // You can set the desired date
         invoice1.setDateLastModificationInvoice(new Date()); // You can set the desired date
         invoice1.setArchived(false);
+        invoices.add(invoice1);
 
         Invoice invoice2 = new Invoice();
         invoice2.setIdInvoice(2L); // Set a unique ID for the second invoice
@@ -114,6 +115,7 @@ class InvoiceServiceImplTest {
         invoice2.setDateCreationInvoice(new Date()); // You can set the desired date
         invoice2.setDateLastModificationInvoice(new Date()); // You can set the desired date
         invoice2.setArchived(false);
+        invoices.add(invoice2);
 
         Invoice invoice3 = new Invoice();
         invoice3.setIdInvoice(3L); // Set a unique ID for the third invoice
@@ -122,10 +124,13 @@ class InvoiceServiceImplTest {
         invoice3.setDateCreationInvoice(new Date()); // You can set the desired date
         invoice3.setDateLastModificationInvoice(new Date()); // You can set the desired date
         invoice3.setArchived(false);
-
-        invoices.add(invoice1);
-        invoices.add(invoice2);
         invoices.add(invoice3);
+
+        Mockito.when(invoiceRepository.save(Mockito.any(Invoice.class))).thenAnswer(invocation -> {
+            Invoice invoice = invocation.getArgument(0);
+            invoices.add(invoice);
+            return invoice;
+        });
 
         return invoices;
     }
