@@ -54,6 +54,15 @@ pipeline {
                 }
             }
         }
+
+        stage('SONARQUBE') {
+            steps {
+                script {
+                    dir('DevOps_Project')
+                    {sh 'mvn sonar:sonar -Dsonar.login=a82dd8f11a0e05755efc85425d6df78bc31346b290320bfa0341bd10d7e75ca6'}
+                }
+            }
+        }
                 
 }
 }
