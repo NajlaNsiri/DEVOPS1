@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,10 +35,11 @@ class InvoiceServiceImplTest {
     @Autowired
     IInvoiceService iInvoiceService;
 
-    @Mock
+
+    @MockBean
     private OperatorRepository operatorRepository;
 
-    @Mock
+    @MockBean
     private InvoiceRepository invoiceRepository;
 
     @BeforeEach
@@ -134,33 +134,4 @@ class InvoiceServiceImplTest {
         invoice.setArchived(false);
         return invoice;
     }
-
-    /*@Test
-    void assignOperatorToInvoice() {
-        // Create a new operator
-        Operator operator = new Operator();
-        operator.setFname("fatma");
-
-        // Create a new invoice
-        Invoice invoice = createSampleInvoices().get(0); // Use one of the sample invoices
-
-        // Mock the operatorRepository findById method
-        when(operatorRepository.findById(eq(1L))).thenReturn(Optional.of(operator));
-        // Mock the invoiceRepository findById method
-        when(invoiceRepository.findById(eq(1L))).thenReturn(Optional.of(invoice));
-
-        // Execute the method to assign the operator to the invoice
-        iInvoiceService.assignOperatorToInvoice(1L, 1L);
-
-        // Verify that the operatorRepository findById method was called with the correct operator id
-        verify(operatorRepository).findById(1L);
-        // Verify that the invoiceRepository findById method was called with the correct invoice id
-        verify(invoiceRepository).findById(1L);
-        // Verify that the operator is now associated with the invoice
-        assertTrue(operator.getInvoices().contains(invoice));
-    }
-*/
-
-
-
 }
