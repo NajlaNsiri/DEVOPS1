@@ -40,12 +40,27 @@ pipeline {
                 }
             }
         }
-
-        stage("Docker build") {
+         stage("Docker build") {
             steps {
                 script {
-                    sh 'docker build -t fatma721/devops_project .'
+                    dir('DevOps_Project')
+                    {sh 'docker build -t fatma721/devops_project .'}
                 }
+            }
+        }
+stage("Docker Login") {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                    }
+                }
+            }
+        }
+        
+stage("Push Image to Docker Hub") {
+            steps {
+                sh 'docker push fatma721/devops_project:latest'
             }
         }
 
