@@ -25,9 +25,8 @@ class InvoiceServiceImplTest {
 
     @Test
     void retrieveAllInvoices() {
-        List<Invoice> actualInvoices = createSampleInvoices(); // Replace with your actual data
+        List<Invoice> actualInvoices = createSampleInvoices();
 
-        // Mock the behavior of the InvoiceRepository to return the actual invoices
         when(invoiceRepository.findAll()).thenReturn(actualInvoices);
 
         List<Invoice> invoices = iInvoiceService.retrieveAllInvoices();
@@ -39,14 +38,12 @@ class InvoiceServiceImplTest {
     void cancelInvoice() {
         Long invoiceId = 1L;
 
-        Invoice originalInvoice = createSampleInvoice(); // Replace with your actual data
+        Invoice originalInvoice = createSampleInvoice();
 
-        // Mock the behavior of the InvoiceRepository to return the original invoice
         when(invoiceRepository.findById(invoiceId)).thenReturn(Optional.of(originalInvoice));
 
         iInvoiceService.cancelInvoice(invoiceId);
 
-        // Verify that the repository's update method is called with the specific argument
         verify(invoiceRepository).updateInvoice(invoiceId);
     }
 
@@ -54,17 +51,13 @@ class InvoiceServiceImplTest {
     void retrieveInvoice() {
         Long invoiceIdToRetrieve = 1L;
 
-        Invoice actualInvoice = createSampleInvoice(); // Replace with your actual data
+        Invoice actualInvoice = createSampleInvoice();
 
-        // Mock the behavior of the InvoiceRepository to return the actual invoice
         when(invoiceRepository.findById(invoiceIdToRetrieve)).thenReturn(Optional.of(actualInvoice));
 
         Invoice retrievedInvoice = iInvoiceService.retrieveInvoice(invoiceIdToRetrieve);
         assertNotNull(retrievedInvoice);
-        assertEquals(actualInvoice.getIdInvoice(), retrievedInvoice.getIdInvoice());
-        assertEquals(actualInvoice.getAmountDiscount(), retrievedInvoice.getAmountDiscount(), 0.01);
-        assertEquals(actualInvoice.getAmountInvoice(), retrievedInvoice.getAmountInvoice(), 0.01);
-        assertEquals(actualInvoice.getArchived(), retrievedInvoice.getArchived());
+        assertInvoicesEqual(actualInvoice, retrievedInvoice);
     }
 
     // Add other test methods following a similar pattern.
@@ -76,22 +69,22 @@ class InvoiceServiceImplTest {
         Invoice invoice1 = new Invoice();
         invoice1.setAmountDiscount(100.0f);
         invoice1.setAmountInvoice(500.0f);
-        invoice1.setDateCreationInvoice(new Date()); // You can set the desired date
-        invoice1.setDateLastModificationInvoice(new Date()); // You can set the desired date
+        invoice1.setDateCreationInvoice(new Date());
+        invoice1.setDateLastModificationInvoice(new Date());
         invoice1.setArchived(false);
 
         Invoice invoice2 = new Invoice();
         invoice2.setAmountDiscount(50.0f);
         invoice2.setAmountInvoice(300.0f);
-        invoice2.setDateCreationInvoice(new Date()); // You can set the desired date
-        invoice2.setDateLastModificationInvoice(new Date()); // You can set the desired date
+        invoice2.setDateCreationInvoice(new Date());
+        invoice2.setDateLastModificationInvoice(new Date());
         invoice2.setArchived(false);
 
         Invoice invoice3 = new Invoice();
         invoice3.setAmountDiscount(75.0f);
         invoice3.setAmountInvoice(700.0f);
-        invoice3.setDateCreationInvoice(new Date()); // You can set the desired date
-        invoice3.setDateLastModificationInvoice(new Date()); // You can set the desired date
+        invoice3.setDateCreationInvoice(new Date());
+        invoice3.setDateLastModificationInvoice(new Date());
         invoice3.setArchived(false);
 
         invoices.add(invoice1);
@@ -110,4 +103,13 @@ class InvoiceServiceImplTest {
         invoice.setArchived(false);
         return invoice;
     }
+
+    private void assertInvoicesEqual(Invoice expected, Invoice actual) {
+        assertEquals(expected.getIdInvoice(), actual.getIdInvoice());
+        assertEquals(expected.getAmountDiscount(), actual.getAmountDiscount(), 0.01);
+        assertEquals(expected.getAmountInvoice(), actual.getAmountInvoice(), 0.01);
+        assertEquals(expected.getArchived(), actual.getArchived());
+        // Add more assertions as needed for other fields
+    }
+
 }
