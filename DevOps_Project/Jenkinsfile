@@ -40,15 +40,6 @@ pipeline {
                 }
             }
         }
-
-        stage("Docker build") {
-            steps {
-                script {
-                    sh 'docker build -t fatma721/devops_project .'
-                }
-            }
-        }
-
         
     }
 }
