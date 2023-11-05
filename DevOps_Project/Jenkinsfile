@@ -52,7 +52,7 @@ pipeline {
                 script {
                     dir('DevOps_Project') {
                         // Use the 'SonarCreds' credential for SonarQube login
-                        withCredentials([usernamePassword(credentialsId: 'SonarCreds', usernameVariable: 'SONAR_USERNAME', passwordVariable: 'SONAR_PASSWORD')]) {
+                        withCredentials([usernamePassword(credentialsId: 'SonarCred', usernameVariable: 'SONAR_USERNAME', passwordVariable: 'SONAR_PASSWORD')]) {
                             sh "mvn sonar:sonar -Dsonar.login=\$SONAR_USERNAME -Dsonar.password=\$SONAR_PASSWORD"
                 }
             }
