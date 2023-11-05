@@ -15,6 +15,14 @@ pipeline {
                     }
             }
         }
+         stage('Compile') {
+            steps {
+                script {
+                    dir('DevOps_Project') {
+                        sh 'mvn compile'}
+                }
+            }
+        }
         stage('Test') {
             steps {
                 script {
