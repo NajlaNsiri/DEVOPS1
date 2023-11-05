@@ -1,12 +1,7 @@
 pipeline {
     agent any
     stages {
-      stage('Tester maven') {
-    steps {
-        script {
-                sh "mvn -version"   }
-    }
-      }
+        
         stage('clean Maven') {
             steps{
                 script{
@@ -57,12 +52,12 @@ pipeline {
                 }
             }
         }
-
-        stage('SONARQUBE') {
+                
+        stages {
+        stage("Docker Run SonarQube") {
             steps {
                 script {
-                    dir('DevOps_Project')
-                    {sh 'mvn sonar:sonar -Dsonar.login=a82dd8f11a0e05755efc85425d6df78bc31346b290320bfa0341bd10d7e75ca6'}
+                    sh 'docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube'
                 }
             }
         }
