@@ -108,7 +108,7 @@ class InvoiceServiceImplTest {
         invoice1.setArchived(false);
 
         Invoice invoice2 = new Invoice();
-        invoice1.setIdInvoice(2L);
+        invoice2.setIdInvoice(2L); // Set a unique ID for the second invoice
         invoice2.setAmountDiscount(50.0f);
         invoice2.setAmountInvoice(300.0f);
         invoice2.setDateCreationInvoice(new Date()); // You can set the desired date
@@ -116,7 +116,7 @@ class InvoiceServiceImplTest {
         invoice2.setArchived(false);
 
         Invoice invoice3 = new Invoice();
-        invoice1.setIdInvoice(3L);
+        invoice3.setIdInvoice(3L); // Set a unique ID for the third invoice
         invoice3.setAmountDiscount(75.0f);
         invoice3.setAmountInvoice(700.0f);
         invoice3.setDateCreationInvoice(new Date()); // You can set the desired date
@@ -150,7 +150,7 @@ class InvoiceServiceImplTest {
         Mockito.when(operatorRepository.save(Mockito.any(Operator.class))).thenReturn(operator);
 
         // Create a new invoice
-        Invoice invoice = createSampleInvoices().get(1); // Use one of the sample invoices
+        Invoice invoice = createSampleInvoices().get(0); // Use one of the sample invoices
 
         // Execute the method to assign the operator to the invoice
         iInvoiceService.assignOperatorToInvoice(operator.getIdOperateur(), invoice.getIdInvoice());
