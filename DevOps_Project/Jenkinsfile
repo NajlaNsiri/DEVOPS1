@@ -46,20 +46,14 @@ pipeline {
                 }
             }
         }
-            stage("Docker Login") {
-             steps {
-                    script {
-                     withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) 
-                   {sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD" }
-                }
-            }
-        }
-
+          
         stage('SONARQUBE') {
             steps {
                 script {
-                    dir('DevOps_Project')
-                    {sh 'mvn sonar:sonar -Dsonar.login=a82dd8f11a0e05755efc85425d6df78bc31346b290320bfa0341bd10d7e75ca6'}
+                    dir('DevOps_Project') {
+                        withCredentials([usernamePassword(credentialsId: 'SonarCreds', usernameVariable: 'SONAR_USERNAME', passwordVariable: 'SONAR_PASSWORD')]) 
+                        {    sh "mvn sonar:sonar -Dsonar.login=$SONAR_USERNAME -Dsonar.password=$SONAR_PASSWORD"}
+                    }
                 }
             }
         }
