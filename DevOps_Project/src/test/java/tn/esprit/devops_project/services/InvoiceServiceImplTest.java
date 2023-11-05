@@ -1,6 +1,7 @@
 package tn.esprit.devops_project.services;
 
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.Mock;
@@ -25,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-//@TestMethodOrder(OrderAnnotation.class)
+@TestMethodOrder(OrderAnnotation.class)
 class InvoiceServiceImplTest {
 
     @Autowired
@@ -36,7 +37,7 @@ class InvoiceServiceImplTest {
     private InvoiceRepository invoiceRepository;
 
     @Test
-        //  @Order(1)
+    @Order(1)
     void retrieveAllInvoices() {
         // Create a list of sample invoices
         List<Invoice> sampleInvoices = new ArrayList<>();
@@ -59,6 +60,7 @@ class InvoiceServiceImplTest {
     }
 
     @Test
+    @Order(3)
     void cancelInvoice() {
         // Create a test invoice with a known ID (adjust the ID as needed)
         Long invoiceId = 1L;
@@ -80,6 +82,7 @@ class InvoiceServiceImplTest {
     }
 
     @Test
+    @Order(2)
     void retrieveInvoice() {
         Long invoiceIdToRetrieve = 1L; // 1L represents the existing ID
 
@@ -101,6 +104,7 @@ class InvoiceServiceImplTest {
     }
 
     @Test
+    @Order(4)
     void getInvoicesBySupplier() {
         Long supplierId = 1L; // Adjust to the ID of an existing supplier
 
@@ -130,6 +134,7 @@ class InvoiceServiceImplTest {
     }
 
     @Test
+    @Order(5)
     void assignOperatorToInvoice() {
         // Create a new operator
         Operator operator = new Operator();
@@ -153,6 +158,7 @@ class InvoiceServiceImplTest {
     }
 
     @Test
+    @Order(6)
     void getTotalAmountInvoiceBetweenDates() {
         // Define start and end dates for the test
         Date startDate = createDate("2023-01-01");
