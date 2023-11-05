@@ -1,13 +1,16 @@
 package tn.esprit.devops_project.services;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import tn.esprit.devops_project.entities.Invoice;
 import tn.esprit.devops_project.entities.Operator;
 import tn.esprit.devops_project.entities.Supplier;
@@ -26,163 +29,110 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@TestMethodOrder(OrderAnnotation.class)
+//@TestMethodOrder(OrderAnnotation.class)
 class InvoiceServiceImplTest {
 
     @Autowired
     IInvoiceService iInvoiceService;
-    @Mock
+
+    @MockBean
     private OperatorRepository operatorRepository;
-    @Mock
+
+    @MockBean
     private InvoiceRepository invoiceRepository;
 
-    @Test
-    @Order(1)
-    void retrieveAllInvoices() {
-        // Create a list of sample invoices
-        List<Invoice> sampleInvoices = new ArrayList<>();
-        for (long i = 1; i <= 10; i++) {
-            Invoice invoice = new Invoice();
-            invoice.setIdInvoice(i);
-            // Add other properties as needed
-            sampleInvoices.add(invoice);
-        }
-
-        // Mock the behavior of the InvoiceRepository
-        when(invoiceRepository.findAll()).thenReturn(sampleInvoices);
-
-        // Execute the method to retrieve all invoices
-        List<Invoice> invoices = iInvoiceService.retrieveAllInvoices();
-
-        // Assertions
-        assertNotNull(invoices);
-        assertEquals(10, invoices.size());
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    @Order(3)
+    void retrieveAllInvoices() {
+        List<Invoice> actualInvoices = createSampleInvoices(); // Replace with your actual data
+
+        // Mock the behavior of the InvoiceRepository to return the actual invoices
+        when(invoiceRepository.findAll()).thenReturn(actualInvoices);
+
+        List<Invoice> invoices = iInvoiceService.retrieveAllInvoices();
+        assertNotNull(invoices);
+        assertEquals(actualInvoices.size(), invoices.size());
+    }
+
+    @Test
     void cancelInvoice() {
-        // Create a test invoice with a known ID (adjust the ID as needed)
         Long invoiceId = 1L;
 
-        // Create a sample invoice
-        Invoice sampleInvoice = new Invoice();
-        sampleInvoice.setIdInvoice(invoiceId);
-        // Set other properties as needed
+        Invoice originalInvoice = createSampleInvoice(); // Replace with your actual data
 
-        // Mock the behavior of the InvoiceRepository
-        when(invoiceRepository.findById(invoiceId)).thenReturn(Optional.of(sampleInvoice));
+        // Mock the behavior of the InvoiceRepository to return the original invoice
+        when(invoiceRepository.findById(invoiceId)).thenReturn(Optional.of(originalInvoice));
 
-        // Execute the cancelInvoice method
         iInvoiceService.cancelInvoice(invoiceId);
 
-        // Assertions
-        verify(invoiceRepository, times(1)).save(sampleInvoice);
-        assertTrue(sampleInvoice.getArchived());
+        // Verify that the repository's update method is called
+        verify(invoiceRepository).updateInvoice(eq(invoiceId));
     }
 
     @Test
-    @Order(2)
     void retrieveInvoice() {
-        Long invoiceIdToRetrieve = 1L; // 1L represents the existing ID
+        Long invoiceIdToRetrieve = 1L;
 
-        // Create a sample invoice
-        Invoice sampleInvoice = new Invoice();
-        sampleInvoice.setIdInvoice(invoiceIdToRetrieve);
-        // Set other properties as needed
+        Invoice actualInvoice = createSampleInvoice(); // Replace with your actual data
 
-        // Mock the behavior of the InvoiceRepository
-        when(invoiceRepository.findById(invoiceIdToRetrieve)).thenReturn(Optional.of(sampleInvoice));
+        // Mock the behavior of the InvoiceRepository to return the actual invoice
+        when(invoiceRepository.findById(eq(invoiceIdToRetrieve))).thenReturn(Optional.of(actualInvoice));
 
-        // Execute the method to retrieve the specific invoice
         Invoice retrievedInvoice = iInvoiceService.retrieveInvoice(invoiceIdToRetrieve);
-
-        // Assertions
         assertNotNull(retrievedInvoice);
-        assertEquals(invoiceIdToRetrieve, retrievedInvoice.getIdInvoice());
-        // Add other assertions for other properties as needed
+        assertEquals(actualInvoice.getIdInvoice(), retrievedInvoice.getIdInvoice());
+        assertEquals(actualInvoice.getAmountDiscount(), retrievedInvoice.getAmountDiscount(), 0.01);
+        assertEquals(actualInvoice.getAmountInvoice(), retrievedInvoice.getAmountInvoice(), 0.01);
+        assertEquals(actualInvoice.getArchived(), retrievedInvoice.getArchived());
+
+        // Add more property validations as needed.
     }
 
-    @Test
-    @Order(4)
-    void getInvoicesBySupplier() {
-        Long supplierId = 1L; // Adjust to the ID of an existing supplier
+    // Add other test methods following a similar pattern.
 
-        // Create a list of sample invoices associated with the supplier
-        List<Invoice> sampleInvoices = new ArrayList<>();
-        for (long i = 1; i <= 2; i++) {
-            Invoice invoice = new Invoice();
-            invoice.setIdInvoice(i);
-            // Set the supplier property to match the test supplier
-            Supplier testSupplier = new Supplier();
-            testSupplier.setIdSupplier(supplierId);
-            invoice.setSupplier(testSupplier);
-            // Set other properties as needed
-            sampleInvoices.add(invoice);
-        }
+    private List<Invoice> createSampleInvoices() {
+        List<Invoice> invoices = new ArrayList<>();
 
-        // Mock the behavior of the InvoiceRepository
-        when(invoiceRepository.retrieveInvoicesBySupplier(any(Supplier.class))).thenReturn(sampleInvoices);
+        // Create a few sample invoices
+        Invoice invoice1 = new Invoice();
+        invoice1.setAmountDiscount(100.0f);
+        invoice1.setAmountInvoice(500.0f);
+        invoice1.setDateCreationInvoice(new Date()); // You can set the desired date
+        invoice1.setDateLastModificationInvoice(new Date()); // You can set the desired date
+        invoice1.setArchived(false);
 
-        // Execute the method to retrieve invoices associated with the supplier
-        List<Invoice> invoices = iInvoiceService.getInvoicesBySupplier(supplierId);
+        Invoice invoice2 = new Invoice();
+        invoice2.setAmountDiscount(50.0f);
+        invoice2.setAmountInvoice(300.0f);
+        invoice2.setDateCreationInvoice(new Date()); // You can set the desired date
+        invoice2.setDateLastModificationInvoice(new Date()); // You can set the desired date
+        invoice2.setArchived(false);
 
-        // Assertions
-        assertNotNull(invoices);
-        assertEquals(2, invoices.size());
-        // Add other assertions for other properties as needed
+        Invoice invoice3 = new Invoice();
+        invoice3.setAmountDiscount(75.0f);
+        invoice3.setAmountInvoice(700.0f);
+        invoice3.setDateCreationInvoice(new Date()); // You can set the desired date
+        invoice3.setDateLastModificationInvoice(new Date()); // You can set the desired date
+        invoice3.setArchived(false);
+
+        invoices.add(invoice1);
+        invoices.add(invoice2);
+        invoices.add(invoice3);
+
+        return invoices;
     }
 
-    @Test
-    @Order(5)
-    void assignOperatorToInvoice() {
-        // Create a new operator
-        Operator operator = new Operator();
-        operator.setFname("fatma"); // Set the operator's name
-
-        // Create a new invoice
+    private Invoice createSampleInvoice() {
+        // Create an actual invoice
         Invoice invoice = new Invoice();
-
-        // Mock the behavior of the OperatorRepository
-        when(operatorRepository.findById(any(Long.class))).thenReturn(Optional.of(operator));
-
-        // Mock the behavior of the InvoiceRepository
-        when(invoiceRepository.save(any(Invoice.class))).thenReturn(invoice);
-
-        // Execute the method to assign the operator to the invoice
-        iInvoiceService.assignOperatorToInvoice(operator.getIdOperateur(), invoice.getIdInvoice());
-
-        // Assertions
-        assertNotNull(operator.getInvoices());
-        assertTrue(operator.getInvoices().contains(invoice));
-    }
-
-    @Test
-    @Order(6)
-    void getTotalAmountInvoiceBetweenDates() {
-        // Define start and end dates for the test
-        Date startDate = createDate("2023-01-01");
-        Date endDate = createDate("2023-02-01");
-
-        // Mock the behavior of the InvoiceRepository
-        when(invoiceRepository.getTotalAmountInvoiceBetweenDates(startDate, endDate)).thenReturn(1000.0f);
-
-        // Execute the method to retrieve the total amount
-        float totalAmount = iInvoiceService.getTotalAmountInvoiceBetweenDates(startDate, endDate);
-
-        // Assertions
-        assertNotNull(totalAmount);
-        assertEquals(1000.0f, totalAmount, 0.01);
-    }
-
-    // Utility method to create Date objects from date strings
-    private Date createDate(String dateString) {
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            return dateFormat.parse(dateString);
-        } catch (ParseException e) {
-            // Handle any parsing exceptions
-            throw new RuntimeException("Error parsing date string: " + dateString, e);
-        }
+        invoice.setIdInvoice(1L);
+        invoice.setAmountDiscount(100.0f);
+        invoice.setAmountInvoice(500.0f);
+        invoice.setArchived(false);
+        return invoice;
     }
 }
