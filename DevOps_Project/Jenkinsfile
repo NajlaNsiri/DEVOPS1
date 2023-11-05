@@ -48,22 +48,30 @@ pipeline {
                 }
             }
         }
-stage("Docker Login") {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                stage("Docker Login") {
+                steps {
+                    script {
+                        withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                     }
                 }
             }
         }
         
-stage("Push Image to Docker Hub") {
+            //stage("Push Image to Docker Hub") {
+            //steps {
+              //  sh 'docker push fatma721/devops_project:latest'
+            //}
+        //}
+
+        stage('SONARQUBE') {
             steps {
-                sh 'docker push fatma721/devops_project:latest'
+                script {
+                    dir('DevOps_Project')
+                    {sh 'mvn sonar:sonar -Dsonar.login=a82dd8f11a0e05755efc85425d6df78bc31346b290320bfa0341bd10d7e75ca6'}
+                }
             }
         }
-
         
     }
 }
