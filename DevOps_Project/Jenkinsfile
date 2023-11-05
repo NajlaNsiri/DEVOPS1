@@ -37,21 +37,21 @@ pipeline {
                 }
             }
         }
-        
-         stage("Docker build") {
-            steps {
-                script {
-                    dir('DevOps_Project')
-                    {sh 'docker build -t fatma721/devops_project .'}
-                }
-            }
-        }
           
      stage('SONARQUBE') {
             steps {
                 script {
                     dir('DevOps_Project')
                     {sh 'mvn sonar:sonar -Dsonar.login=squ_036b7cd4a30da2a71a44697198f2f661863e1458'}
+                }
+            }
+        }
+
+         stage("Docker build") {
+            steps {
+                script {
+                    dir('DevOps_Project')
+                    {sh 'docker build -t fatma721/devops_project .'}
                 }
             }
         }
