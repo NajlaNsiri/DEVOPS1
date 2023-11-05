@@ -5,28 +5,30 @@ pipeline {
         stage('clean Maven') {
             steps{
                 script{
-                    dir('DevOps_Project'){
-                    sh "mvn clean" } 
-                    }
+                    dir('DevOps_Project')
+                    {sh "mvn clean" } 
+                }
             }
         }
+        
          stage('Compile') {
             steps {
                 script {
-                    dir('DevOps_Project') {
-                        sh 'mvn compile'}
+                    dir('DevOps_Project')
+                    {sh 'mvn compile'}
                 }
             }
         }
+        
         stage('Test') {
             steps {
                 script {
-                    dir('DevOps_Project') {
-                        sh 'mvn test'
-                    }
+                    dir('DevOps_Project') 
+                    { sh 'mvn test' }
                 }
             }
         }
+        
           stage('Build') {
               steps {
                  script {
@@ -35,6 +37,7 @@ pipeline {
                 }
             }
         }
+        
          stage("Docker build") {
             steps {
                 script {
@@ -43,12 +46,11 @@ pipeline {
                 }
             }
         }
-                stage("Docker Login") {
-                steps {
+            stage("Docker Login") {
+             steps {
                     script {
-                        withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    }
+                     withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) 
+                   {sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD" }
                 }
             }
         }
@@ -57,11 +59,11 @@ pipeline {
         stage("Docker Run SonarQube") {
             steps {
                 script {
-                    sh 'docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube'
+                    sh 'docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube' 
                 }
             }
-        }  
-    }
+        }
+     }
         
 }
 }
