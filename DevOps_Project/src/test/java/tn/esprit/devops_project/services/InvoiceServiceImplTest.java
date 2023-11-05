@@ -1,25 +1,11 @@
 package tn.esprit.devops_project.services;
-
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import tn.esprit.devops_project.entities.Invoice;
-import tn.esprit.devops_project.entities.Operator;
-import tn.esprit.devops_project.entities.Supplier;
 import tn.esprit.devops_project.repositories.InvoiceRepository;
-import tn.esprit.devops_project.repositories.OperatorRepository;
 import tn.esprit.devops_project.services.Iservices.IInvoiceService;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,23 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-//@TestMethodOrder(OrderAnnotation.class)
 class InvoiceServiceImplTest {
 
     @Autowired
     IInvoiceService iInvoiceService;
 
-
-    @MockBean
-    private OperatorRepository operatorRepository;
-
     @MockBean
     private InvoiceRepository invoiceRepository;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     void retrieveAllInvoices() {
@@ -70,8 +46,8 @@ class InvoiceServiceImplTest {
 
         iInvoiceService.cancelInvoice(invoiceId);
 
-        // Verify that the repository's update method is called
-        verify(invoiceRepository).updateInvoice(eq(invoiceId));
+        // Verify that the repository's update method is called with the specific argument
+        verify(invoiceRepository).updateInvoice(invoiceId);
     }
 
     @Test
@@ -81,7 +57,7 @@ class InvoiceServiceImplTest {
         Invoice actualInvoice = createSampleInvoice(); // Replace with your actual data
 
         // Mock the behavior of the InvoiceRepository to return the actual invoice
-        when(invoiceRepository.findById(eq(invoiceIdToRetrieve))).thenReturn(Optional.of(actualInvoice));
+        when(invoiceRepository.findById(invoiceIdToRetrieve)).thenReturn(Optional.of(actualInvoice));
 
         Invoice retrievedInvoice = iInvoiceService.retrieveInvoice(invoiceIdToRetrieve);
         assertNotNull(retrievedInvoice);
