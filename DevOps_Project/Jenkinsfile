@@ -47,18 +47,14 @@ pipeline {
             }
         }
           
-       stage('SONARQUBE') {
+     stage('SONARQUBE') {
             steps {
                 script {
-                    dir('DevOps_Project') {
-                        // Use the 'SonarCreds' credential for SonarQube login
-                        withCredentials([usernamePassword(credentialsId: 'SonarCred', usernameVariable: 'SONAR_USERNAME', passwordVariable: 'SONAR_PASSWORD')]) {
-                            sh "mvn sonar:sonar -Dsonar.login=\$SONAR_USERNAME -Dsonar.password=\$SONAR_PASSWORD"
+                    dir('DevOps_Project')
+                    {sh 'mvn sonar:sonar -Dsonar.login=squ_036b7cd4a30da2a71a44697198f2f661863e1458'}
                 }
             }
         }
-    }
-       }
                 
 }
 }
