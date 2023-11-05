@@ -57,7 +57,6 @@ class InvoiceServiceImplTest {
         List<Invoice> invoices = iInvoiceService.retrieveAllInvoices();
         assertNotNull(invoices);
         assertEquals(actualInvoices.size(), invoices.size());
-        
     }
 
     @Test
@@ -90,8 +89,6 @@ class InvoiceServiceImplTest {
         assertEquals(actualInvoice.getAmountDiscount(), retrievedInvoice.getAmountDiscount(), 0.01);
         assertEquals(actualInvoice.getAmountInvoice(), retrievedInvoice.getAmountInvoice(), 0.01);
         assertEquals(actualInvoice.getArchived(), retrievedInvoice.getArchived());
-
-        // Add more property validations as needed.
     }
 
     // Add other test methods following a similar pattern.
@@ -101,37 +98,29 @@ class InvoiceServiceImplTest {
 
         // Create a few sample invoices
         Invoice invoice1 = new Invoice();
-        invoice1.setIdInvoice(1L);
         invoice1.setAmountDiscount(100.0f);
         invoice1.setAmountInvoice(500.0f);
         invoice1.setDateCreationInvoice(new Date()); // You can set the desired date
         invoice1.setDateLastModificationInvoice(new Date()); // You can set the desired date
         invoice1.setArchived(false);
-        invoices.add(invoice1);
 
         Invoice invoice2 = new Invoice();
-        invoice2.setIdInvoice(2L); // Set a unique ID for the second invoice
         invoice2.setAmountDiscount(50.0f);
         invoice2.setAmountInvoice(300.0f);
         invoice2.setDateCreationInvoice(new Date()); // You can set the desired date
         invoice2.setDateLastModificationInvoice(new Date()); // You can set the desired date
         invoice2.setArchived(false);
-        invoices.add(invoice2);
 
         Invoice invoice3 = new Invoice();
-        invoice3.setIdInvoice(3L); // Set a unique ID for the third invoice
         invoice3.setAmountDiscount(75.0f);
         invoice3.setAmountInvoice(700.0f);
         invoice3.setDateCreationInvoice(new Date()); // You can set the desired date
         invoice3.setDateLastModificationInvoice(new Date()); // You can set the desired date
         invoice3.setArchived(false);
-        invoices.add(invoice3);
 
-        Mockito.when(invoiceRepository.save(Mockito.any(Invoice.class))).thenAnswer(invocation -> {
-            Invoice invoice = invocation.getArgument(0);
-            invoices.add(invoice);
-            return invoice;
-        });
+        invoices.add(invoice1);
+        invoices.add(invoice2);
+        invoices.add(invoice3);
 
         return invoices;
     }
