@@ -1,10 +1,11 @@
 package tn.esprit.devops_project.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import tn.esprit.devops_project.entities.SupplierCategory;
 import java.util.Set;
 
-@Data
+@Getter @Setter
 public class  SupplierDTO {
     private String code;
     private String label;

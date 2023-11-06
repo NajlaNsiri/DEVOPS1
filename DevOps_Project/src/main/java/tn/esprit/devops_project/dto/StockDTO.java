@@ -1,8 +1,9 @@
 package tn.esprit.devops_project.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
 public class StockDTO {
     private String title;
 }

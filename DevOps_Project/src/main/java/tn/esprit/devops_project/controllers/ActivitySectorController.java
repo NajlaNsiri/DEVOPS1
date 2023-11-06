@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.devops_project.dto.ActivitySectorDTO;
 import tn.esprit.devops_project.entities.ActivitySector;
 import tn.esprit.devops_project.services.iservices.IActivitySector;
-
-
 import java.util.List;
 
 @RestController
@@ -20,8 +18,8 @@ public class ActivitySectorController {
         return activitySectorService.retrieveAllActivitySectors();
     }
 
-    @PostMapping("/activitySector")
-    public ActivitySector addActivitySector(@RequestBody ActivitySectorDTO activitySectorDTO) {
+    @PostMapping
+    public ActivitySector createActivitySector(@RequestBody ActivitySectorDTO activitySectorDTO) {
         ActivitySector activitySector = new ActivitySector();
         activitySector.setCodeSecteurActivite(activitySectorDTO.getCodeSecteurActivite());
         activitySector.setLibelleSecteurActivite(activitySectorDTO.getLibelleSecteurActivite());
@@ -32,7 +30,7 @@ public class ActivitySectorController {
         activitySectorService.deleteActivitySector(id);
     }
 
-    @PutMapping("/activitySector/{id}")
+    @PutMapping("/{id}")
     public ActivitySector updateActivitySector(@PathVariable Long id, @RequestBody ActivitySectorDTO activitySectorDTO) {
         ActivitySector existingActivitySector = activitySectorService.retrieveActivitySector(id);
         existingActivitySector.setCodeSecteurActivite(activitySectorDTO.getCodeSecteurActivite());

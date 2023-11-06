@@ -33,9 +33,12 @@ public class SupplierController {
     public void removeFournisseur(@PathVariable Long supplierId) {
         supplierService.deleteSupplier(supplierId);
     }
-    @PostMapping("/suppliers")
+    @PostMapping
     public Supplier createSupplier(@RequestBody SupplierDTO supplierDTO) {
-        Supplier supplier = mapSupplierDTOToSupplier(supplierDTO);
+        Supplier supplier = new Supplier();
+        supplier.setCode(supplierDTO.getCode());
+        supplier.setLabel(supplierDTO.getLabel());
+        supplier.setSupplierCategory(supplierDTO.getSupplierCategory());
         return supplierService.addSupplier(supplier);
     }
 
@@ -55,12 +58,6 @@ public class SupplierController {
             activitySectors.add(activitySector);
         }
         return activitySectors;
-    }
-
-    private Supplier mapSupplierDTOToSupplier(SupplierDTO supplierDTO) {
-        Supplier supplier = new Supplier();
-        mapSupplierDTOToSupplier(supplier, supplierDTO);
-        return supplier;
     }
 
     private void mapSupplierDTOToSupplier(Supplier supplier, SupplierDTO supplierDTO) {

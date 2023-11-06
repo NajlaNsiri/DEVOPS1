@@ -20,8 +20,6 @@ public class StockController {
     public Stock createStock(@RequestBody StockDTO stockDTO) {
         Stock stock = new Stock();
         stock.setTitle(stockDTO.getTitle());
-
-        // Set other properties if needed
         return stockService.addStock(stock);
     }
 
