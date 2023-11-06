@@ -17,14 +17,12 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class InvoiceServiceImplTest {
-
-    @Autowired
-    IInvoiceService iInvoiceService;
-
     @Mock
     private InvoiceRepository invoiceRepository;
     @Mock
     private OperatorRepository operatorRepository;
+    @InjectMocks
+    InvoiceServiceImpl invoiceService ;
 
     @Test
     void retrieveAllInvoices() {
@@ -32,7 +30,7 @@ class InvoiceServiceImplTest {
 
         when(invoiceRepository.findAll()).thenReturn(actualInvoices);
 
-        List<Invoice> invoices = iInvoiceService.retrieveAllInvoices();
+        List<Invoice> invoices = invoiceService.retrieveAllInvoices();
         assertNotNull(invoices);
         assertEquals(actualInvoices.size(), invoices.size());
     }
@@ -45,7 +43,7 @@ class InvoiceServiceImplTest {
 
         when(invoiceRepository.findById(invoiceId)).thenReturn(Optional.of(originalInvoice));
 
-        iInvoiceService.cancelInvoice(invoiceId);
+        invoiceService.cancelInvoice(invoiceId);
 
         verify(invoiceRepository).updateInvoice(invoiceId);
     }
@@ -58,7 +56,7 @@ class InvoiceServiceImplTest {
 
         when(invoiceRepository.findById(invoiceIdToRetrieve)).thenReturn(Optional.of(actualInvoice));
 
-        Invoice retrievedInvoice = iInvoiceService.retrieveInvoice(invoiceIdToRetrieve);
+        Invoice retrievedInvoice = invoiceService.retrieveInvoice(invoiceIdToRetrieve);
         assertNotNull(retrievedInvoice);
         assertInvoicesEqual(actualInvoice, retrievedInvoice);
     }
@@ -128,7 +126,7 @@ class InvoiceServiceImplTest {
         when(operatorRepository.findById(operatorId)).thenReturn(Optional.of(operator));
 
         // Act
-        iInvoiceService.assignOperatorToInvoice(operatorId, invoiceId);
+        invoiceService.assignOperatorToInvoice(operatorId, invoiceId);
 
         // Assert
         assertTrue(operator.getInvoices().contains(originalInvoice));
@@ -140,7 +138,6 @@ class InvoiceServiceImplTest {
         operator.setFname("John"); // Set the first name
         operator.setLname("Doe"); // Set the last name
         operator.setPassword("password123"); // Set the password
-
         // Create an empty set for invoices, as this operator doesn't have any initially.
         operator.setInvoices(new HashSet<>());
 
