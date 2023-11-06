@@ -151,7 +151,6 @@ class InvoiceServiceImplTest {
     void getInvoicesBySupplier() {
         Long supplierId = 1L;
         Supplier supplier = createSampleSupplier();
-        List<Invoice> invoices = createSampleInvoices();
 
         // Mock the behavior of the supplierRepository to return the sample supplier
         when(supplierRepository.findById(supplierId)).thenReturn(Optional.of(supplier));
@@ -159,8 +158,9 @@ class InvoiceServiceImplTest {
         List<Invoice> resultInvoices = invoiceService.getInvoicesBySupplier(supplierId);
 
         assertNotNull(resultInvoices);
-        assertEquals(invoices.size(), resultInvoices.size());
+        assertEquals(supplier.getInvoices(), resultInvoices);
     }
+
 
     private Supplier createSampleSupplier() {
         Supplier supplier = new Supplier();
