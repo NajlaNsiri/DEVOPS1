@@ -18,7 +18,7 @@ public class ActivitySectorController {
         return activitySectorService.retrieveAllActivitySectors();
     }
 
-    @PostMapping
+    @PostMapping("/activitysectors")
     public ActivitySector createActivitySector(@RequestBody ActivitySectorDTO activitySectorDTO) {
         ActivitySector activitySector = new ActivitySector();
         activitySector.setCodeSecteurActivite(activitySectorDTO.getCodeSecteurActivite());

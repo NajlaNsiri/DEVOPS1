@@ -8,10 +8,7 @@ import tn.esprit.devops_project.entities.Supplier;
 import tn.esprit.devops_project.services.iservices.IActivitySector;
 import tn.esprit.devops_project.services.iservices.ISupplierService;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import java.util.*;
 
 @RestController
 @AllArgsConstructor
@@ -29,17 +26,10 @@ public class SupplierController {
     public Supplier retrieveSupplier(@PathVariable Long supplierId) {
         return supplierService.retrieveSupplier(supplierId);
     }
+
     @DeleteMapping("/supplier/{supplierId}")
     public void removeFournisseur(@PathVariable Long supplierId) {
         supplierService.deleteSupplier(supplierId);
-    }
-    @PostMapping
-    public Supplier createSupplier(@RequestBody SupplierDTO supplierDTO) {
-        Supplier supplier = new Supplier();
-        supplier.setCode(supplierDTO.getCode());
-        supplier.setLabel(supplierDTO.getLabel());
-        supplier.setSupplierCategory(supplierDTO.getSupplierCategory());
-        return supplierService.addSupplier(supplier);
     }
 
     @PutMapping("/suppliers/{id}")
@@ -65,5 +55,4 @@ public class SupplierController {
         supplier.setLabel(supplierDTO.getLabel());
         supplier.setSupplierCategory(supplierDTO.getSupplierCategory());
     }
-
 }
