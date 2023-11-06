@@ -1,6 +1,5 @@
 package tn.esprit.devops_project.entities;
 
-import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -14,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Supplier implements Serializable {
+public class Supplier {
 
 	private static final long serialVersionUID = 1L;
 

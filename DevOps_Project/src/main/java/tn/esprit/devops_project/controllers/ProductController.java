@@ -2,9 +2,12 @@ package tn.esprit.devops_project.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.devops_project.dto.ProductDTO;
 import tn.esprit.devops_project.entities.Product;
 import tn.esprit.devops_project.entities.ProductCategory;
-import tn.esprit.devops_project.services.Iservices.IProductService;
+import tn.esprit.devops_project.entities.Stock;
+import tn.esprit.devops_project.services.StockServiceImpl;
+import tn.esprit.devops_project.services.iservices.IProductService;
 
 import java.util.List;
 
@@ -14,10 +17,19 @@ import java.util.List;
 public class ProductController {
 
     private final IProductService productService;
+    private StockServiceImpl stockService;
 
-    @PostMapping("/product/{idStock}")
-    Product addProduct(@RequestBody Product product,@PathVariable Long idStock){
-        return productService.addProduct(product,idStock);
+    @PostMapping("/products")
+    public Product createProduct(@RequestBody ProductDTO productDTO) {
+        Stock stock = stockService.retrieveStock(productDTO.getIdStock());
+
+        Product product = new Product();
+        product.setTitle(productDTO.getTitle());
+        product.setPrice(productDTO.getPrice());
+        product.setQuantity(productDTO.getQuantity());
+        product.setCategory(productDTO.getCategory());
+        product.setStock(stock);
+        return productService.addProduct(product, productDTO.getIdStock());
     }
 
     @GetMapping("/product/{id}")

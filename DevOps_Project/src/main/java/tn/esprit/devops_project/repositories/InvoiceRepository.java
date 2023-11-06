@@ -10,6 +10,7 @@ import tn.esprit.devops_project.entities.Supplier;
 
 import java.util.Date;
 import java.util.List;
+@Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
 	
@@ -20,7 +21,6 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 	@Query("SELECT sum(i.amountInvoice) FROM Invoice i where  i.dateCreationInvoice between :startDate"
 			+ " and :endDate and i.archived=false")
 	float getTotalAmountInvoiceBetweenDates(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
-
 	@Modifying
 	@Query("update Invoice i set i.archived=true where i.idInvoice=?1")
 	void updateInvoice(Long id);

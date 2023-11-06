@@ -3,8 +3,10 @@ package tn.esprit.devops_project.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.devops_project.dto.StockDTO;
 import tn.esprit.devops_project.entities.Stock;
-import tn.esprit.devops_project.services.Iservices.IStockService;
+import tn.esprit.devops_project.services.iservices.IStockService;
+
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -14,8 +16,12 @@ public class StockController {
 
     IStockService stockService;
 
-    @PostMapping("/stock")
-    Stock addStock(@RequestBody Stock stock){
+    @PostMapping("/stocks")
+    public Stock createStock(@RequestBody StockDTO stockDTO) {
+        Stock stock = new Stock();
+        stock.setTitle(stockDTO.getTitle());
+
+        // Set other properties if needed
         return stockService.addStock(stock);
     }
 

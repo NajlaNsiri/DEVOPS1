@@ -2,8 +2,9 @@ package tn.esprit.devops_project.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.devops_project.dto.OperatorDTO;
 import tn.esprit.devops_project.entities.Operator;
-import tn.esprit.devops_project.services.Iservices.IOperatorService;
+import tn.esprit.devops_project.services.iservices.IOperatorService;
 
 import java.util.List;
 
@@ -23,8 +24,12 @@ public class OperatorController {
 		return operatorService.retrieveOperator(operatorId);
 	}
 
-	@PostMapping("/operator")
-	public Operator addOperator(@RequestBody Operator operator) {
+	@PostMapping("/operators")
+	public Operator createOperator(@RequestBody OperatorDTO operatorDTO) {
+		Operator operator = new Operator();
+		operator.setFname(operatorDTO.getFname());
+		operator.setLname(operatorDTO.getLname());
+		operator.setPassword(operatorDTO.getPassword());
 		return operatorService.addOperator(operator);
 	}
 
@@ -33,9 +38,12 @@ public class OperatorController {
 		operatorService.deleteOperator(operatorId);
 	}
 
-	@PutMapping("/operator")
-	public Operator modifyOperateur(@RequestBody Operator operator) {
-		return operatorService.updateOperator(operator);
+	@PutMapping("/operators/{id}")
+	public Operator updateOperator(@PathVariable Long id, @RequestBody OperatorDTO operatorDTO) {
+		Operator existingOperator = operatorService.retrieveOperator(id);
+		existingOperator.setFname(operatorDTO.getFname());
+		existingOperator.setLname(operatorDTO.getLname());
+		return operatorService.updateOperator(existingOperator);
 	}
 
 	
