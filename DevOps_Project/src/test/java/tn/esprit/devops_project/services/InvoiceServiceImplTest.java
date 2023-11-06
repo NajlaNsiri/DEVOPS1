@@ -2,13 +2,14 @@ package tn.esprit.devops_project.services;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.devops_project.entities.Invoice;
 import tn.esprit.devops_project.entities.Operator;
+import tn.esprit.devops_project.entities.Supplier;
+import tn.esprit.devops_project.entities.SupplierCategory;
 import tn.esprit.devops_project.repositories.InvoiceRepository;
 import tn.esprit.devops_project.repositories.OperatorRepository;
-import tn.esprit.devops_project.services.iservices.IInvoiceService;
+import tn.esprit.devops_project.repositories.SupplierRepository;
 
 import java.util.*;
 
@@ -21,6 +22,8 @@ class InvoiceServiceImplTest {
     private InvoiceRepository invoiceRepository;
     @Mock
     private OperatorRepository operatorRepository;
+    @Mock
+    private SupplierRepository supplierRepository;
     @InjectMocks
     InvoiceServiceImpl invoiceService ;
 
@@ -143,4 +146,36 @@ class InvoiceServiceImplTest {
 
         return operator;
     }
+
+    @Test
+    void getInvoicesBySupplier() {
+        Long supplierId = 1L;
+        Supplier supplier = createSampleSupplier();
+        List<Invoice> invoices = createSampleInvoices();
+
+        // Mock the behavior of the supplierRepository to return the sample supplier
+        when(supplierRepository.findById(supplierId)).thenReturn(Optional.of(supplier));
+
+        List<Invoice> resultInvoices = invoiceService.getInvoicesBySupplier(supplierId);
+
+        assertNotNull(resultInvoices);
+        assertEquals(invoices.size(), resultInvoices.size());
+    }
+
+    private Supplier createSampleSupplier() {
+        Supplier supplier = new Supplier();
+        supplier.setIdSupplier(1L);
+        supplier.setCode("SAMPLECODE");
+        supplier.setLabel("Sample Supplier");
+        supplier.setSupplierCategory(SupplierCategory.ORDINAIRE);
+
+        // Create sample invoices and add them to the supplier
+        List<Invoice> sampleInvoices = createSampleInvoices();
+        supplier.setInvoices(new HashSet<>(sampleInvoices));
+
+        return supplier;
+    }
+
+
+
 }
