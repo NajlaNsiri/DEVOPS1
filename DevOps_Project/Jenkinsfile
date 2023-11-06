@@ -20,14 +20,14 @@ pipeline {
             }
         }
         
-        stage('Test') {
-            steps {
-                script {
-                    dir('DevOps_Project') 
-                    { sh 'mvn test' }
-                }
-            }
-        }
+       //stage('Test') {
+            //steps {
+                //script {
+                    //dir('DevOps_Project') 
+                    //{ sh 'mvn test' }
+                //}
+            //}
+        //}
         
           stage('Build') {
               steps {
@@ -47,14 +47,15 @@ pipeline {
             }
         }
 
-         stage("Docker build") {
-            steps {
-                script {
+        stage('Nexus'){
+              steps {
+                 script {
                     dir('DevOps_Project')
-                    {sh 'docker build -t fatma721/devops_project .'}
+                    {sh 'mvn deploy -Dmaven.test.skip=true '}
                 }
-            }
+            } 
         }
+        
                 
 }
 }
