@@ -9,7 +9,7 @@ import tn.esprit.devops_project.services.iservices.IStockService;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @AllArgsConstructor
 public class StockController {
@@ -23,7 +23,7 @@ public class StockController {
         return stockService.addStock(stock);
     }
 
-    @GetMapping("/stock/{id}")
+    @GetMapping("/stockk/{id}")
     Stock retrieveStock(@PathVariable Long id){
         return stockService.retrieveStock(id);
     }

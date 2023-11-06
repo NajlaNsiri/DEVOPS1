@@ -1,7 +1,6 @@
 package tn.esprit.devops_project.controllers;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -11,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
+import tn.esprit.devops_project.controllers.ProductController;
 import tn.esprit.devops_project.dto.ProductDTO;
 import tn.esprit.devops_project.entities.Product;
 import tn.esprit.devops_project.entities.ProductCategory;
@@ -33,7 +33,7 @@ class ProductControllerTest {
     private IStockService stockService;
 
     @Test
-     void testCreateProduct() {
+    void testCreateProduct() {
         // Create a ProductDTO for testing
         ProductDTO productDTO = new ProductDTO();
         productDTO.setIdStock(1L);
@@ -57,7 +57,7 @@ class ProductControllerTest {
     }
 
     @Test
-     void testRetrieveProduct() {
+    void testRetrieveProduct() {
         Long productId = 1L;
         Product mockProduct = new Product();
         when(productService.retrieveProduct(productId)).thenReturn(mockProduct);
@@ -69,30 +69,30 @@ class ProductControllerTest {
     }
 
     @Test
-   void testRetrieveAllProduct() {
+    void testRetrieveAllProduct() {
         List<Product> mockProductList = new ArrayList<>();
         when(productService.retreiveAllProduct()).thenReturn(mockProductList);
 
-        List<Product> allProducts = productController.retreiveAllProduct();
+        List<Product> allProducts = productController.retrieveAllProduct();
 
         assertNotNull(allProducts);
         // Add more assertions as needed to validate the behavior
     }
 
     @Test
-     void testRetrieveProductStock() {
+    void testRetrieveProductStock() {
         Long stockId = 1L;
         List<Product> mockProductList = new ArrayList<>();
         when(productService.retreiveProductStock(stockId)).thenReturn(mockProductList);
 
-        List<Product> productsInStock = productController.retreiveProductStock(stockId);
+        List<Product> productsInStock = productController.retrieveProductStock(stockId);
 
         assertNotNull(productsInStock);
         // Add more assertions as needed to validate the behavior
     }
 
     @Test
-     void testRetrieveProductByCategory() {
+    void testRetrieveProductByCategory() {
         ProductCategory category = ProductCategory.ELECTRONICS;
         List<Product> mockProductList = new ArrayList<>();
         when(productService.retrieveProductByCategory(category)).thenReturn(mockProductList);
