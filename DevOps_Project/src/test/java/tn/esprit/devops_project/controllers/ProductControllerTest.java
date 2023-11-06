@@ -40,7 +40,7 @@ class ProductControllerTest {
         productDTO.setTitle("Test Product");
         productDTO.setPrice(10.0f);
         productDTO.setQuantity(100);
-        productDTO.setCategory(productDTO.getCategory());
+        productDTO.setCategory(ProductCategory.ELECTRONICS);
 
         Stock mockStock = new Stock();
         when(stockService.retrieveStock(1L)).thenReturn(mockStock);
