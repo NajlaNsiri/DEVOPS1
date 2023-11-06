@@ -10,13 +10,12 @@ import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
-import tn.esprit.devops_project.controllers.ProductController;
 import tn.esprit.devops_project.dto.ProductDTO;
 import tn.esprit.devops_project.entities.Product;
 import tn.esprit.devops_project.entities.ProductCategory;
 import tn.esprit.devops_project.entities.Stock;
-import tn.esprit.devops_project.services.iservices.IProductService;
-import tn.esprit.devops_project.services.iservices.IStockService;
+import tn.esprit.devops_project.services.ProductServiceImpl;
+import tn.esprit.devops_project.services.StockServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +27,10 @@ class ProductControllerTest {
     private ProductController productController;
 
     @Mock
-    private IProductService productService;
+    private ProductServiceImpl productService;
+
     @Mock
-    private IStockService stockService;
+    private StockServiceImpl stockService;
 
     @Test
     void testCreateProduct() {
