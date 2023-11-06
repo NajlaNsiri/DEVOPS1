@@ -10,10 +10,7 @@ import tn.esprit.devops_project.repositories.InvoiceRepository;
 import tn.esprit.devops_project.repositories.OperatorRepository;
 import tn.esprit.devops_project.services.iservices.IInvoiceService;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -119,28 +116,34 @@ class InvoiceServiceImplTest {
     }
 
     @Test
-    void assignOperatorToInvoice() {
-        Long idOperator = 1L;
-        Long idInvoice = 2L;
+    void testAssignOperatorToInvoice() {
+        // Arrange
+        Long invoiceId = 1L;
+        Long operatorId = 2L;
 
-        Operator operator = new Operator();
-        operator.setIdOperateur(idOperator);
+        Invoice originalInvoice = createSampleInvoice();
+        Operator operator = createSampleOperator();
 
-        Invoice invoice = new Invoice();
-        invoice.setIdInvoice(idInvoice);
+        when(invoiceRepository.findById(invoiceId)).thenReturn(Optional.of(originalInvoice));
+        when(operatorRepository.findById(operatorId)).thenReturn(Optional.of(operator));
 
-        // Mock the behavior of your repositories
-        when(operatorRepository.findById(idOperator)).thenReturn(Optional.of(operator));
-        when(invoiceRepository.findById(idInvoice)).thenReturn(Optional.of(invoice));
+        // Act
+        iInvoiceService.assignOperatorToInvoice(operatorId, invoiceId);
 
-        // Call your service method
-        iInvoiceService.assignOperatorToInvoice(idOperator, idInvoice);
-
-        // Verify that the operator's invoices have been updated
-        verify(operatorRepository, times(1)).save(operator);
-
-        // Ensure that the invoice has been added to the operator's invoices
-        assertTrue(operator.getInvoices().contains(invoice));
+        // Assert
+        assertTrue(operator.getInvoices().contains(originalInvoice));
+        verify(operatorRepository).save(operator);
     }
-    
+    private Operator createSampleOperator() {
+        Operator operator = new Operator();
+        operator.setIdOperateur(2L); // Set the operator's ID
+        operator.setFname("John"); // Set the first name
+        operator.setLname("Doe"); // Set the last name
+        operator.setPassword("password123"); // Set the password
+
+        // Create an empty set for invoices, as this operator doesn't have any initially.
+        operator.setInvoices(new HashSet<>());
+
+        return operator;
+    }
 }
