@@ -1,10 +1,13 @@
 package tn.esprit.devops_project.services;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import tn.esprit.devops_project.entities.Invoice;
+import tn.esprit.devops_project.entities.Operator;
 import tn.esprit.devops_project.repositories.InvoiceRepository;
+import tn.esprit.devops_project.repositories.OperatorRepository;
 import tn.esprit.devops_project.services.iservices.IInvoiceService;
 
 import java.util.ArrayList;
@@ -21,8 +24,10 @@ class InvoiceServiceImplTest {
     @Autowired
     IInvoiceService iInvoiceService;
 
-    @MockBean
+    @Mock
     private InvoiceRepository invoiceRepository;
+    @Mock
+    private OperatorRepository operatorRepository;
 
     @Test
     void retrieveAllInvoices() {
@@ -113,4 +118,29 @@ class InvoiceServiceImplTest {
         // Add more assertions as needed for other fields
     }
 
+    @Test
+    void assignOperatorToInvoice() {
+        Long idOperator = 1L;
+        Long idInvoice = 2L;
+
+        Operator operator = new Operator();
+        operator.setIdOperateur(idOperator);
+
+        Invoice invoice = new Invoice();
+        invoice.setIdInvoice(idInvoice);
+
+        // Mock the behavior of your repositories
+        when(operatorRepository.findById(idOperator)).thenReturn(Optional.of(operator));
+        when(invoiceRepository.findById(idInvoice)).thenReturn(Optional.of(invoice));
+
+        // Call your service method
+        iInvoiceService.assignOperatorToInvoice(idOperator, idInvoice);
+
+        // Verify that the operator's invoices have been updated
+        verify(operatorRepository, times(1)).save(operator);
+
+        // Ensure that the invoice has been added to the operator's invoices
+        assertTrue(operator.getInvoices().contains(invoice));
+    }
+    
 }
