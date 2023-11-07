@@ -6,19 +6,18 @@ import org.mockito.Mock;
 import tn.esprit.devops_project.dto.OperatorDTO;
 import tn.esprit.devops_project.entities.Operator;
 import tn.esprit.devops_project.services.OperatorServiceImpl;
+import tn.esprit.devops_project.services.iservices.IOperatorService;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
 class OperatorControllerTest {
-
     @InjectMocks
     private OperatorController operatorController;
 
     @Mock
-    private OperatorServiceImpl operatorService;
-
+    private IOperatorService operatorService;
 
     @Test
      void testRemoveOperator() {
@@ -32,7 +31,6 @@ class OperatorControllerTest {
 
         // Verify that deleteOperator was called with the correct argument
         verify(operatorService, times(1)).deleteOperator(operatorId);
-        
     }
 
     @Test
@@ -56,6 +54,4 @@ class OperatorControllerTest {
         assertEquals("Updated First Name", updatedOperator.getFname());
         assertEquals("Updated Last Name", updatedOperator.getLname());
     }
-
-
 }
