@@ -9,7 +9,14 @@ pipeline {
                 }
             }
         }
-        
+        stage('Junit/Mock') {
+              steps {
+                 script {
+                    dir('DevOps_Project')
+                    {sh 'mvn test '}
+                }
+            }
+        }
           stage('Build') {
               steps {
                  script {
@@ -19,14 +26,7 @@ pipeline {
             }
         } 
         
-        stage('Junit/Mock') {
-              steps {
-                 script {
-                    dir('DevOps_Project')
-                    {sh 'mvn test '}
-                }
-            }
-        }
+        
             stage("Docker build") {
             steps {
                 sh 'docker version'
