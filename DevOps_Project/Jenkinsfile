@@ -1,16 +1,6 @@
 pipeline {
     agent any
-    stages {
-        
-        stage('clean Maven') {
-            steps{
-                script{
-                    dir('DevOps_Project')
-                    {sh "mvn clean" } 
-                }
-            }
-        }
-        
+    stages {    
          stage('Compile') {
             steps {
                 script {
@@ -47,6 +37,10 @@ pipeline {
             }
         }
         
-                
+        stage("Push Image to Docker Hub") {
+            steps {
+              sh 'docker push fatma721/sonarqube:latest'
+            }
+        }        
 }
 }
