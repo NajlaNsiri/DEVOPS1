@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-        stage("Push Image to Docker Hub") {
+        stage("creer Image to Docker Hub") {
          steps {
                sh 'docker build -t sonarqube/fatma721 .'
             }
