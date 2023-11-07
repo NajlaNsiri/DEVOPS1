@@ -23,9 +23,14 @@ class OperatorControllerTest {
      void testRemoveOperator() {
         Long operatorId = 1L;
 
+        // Mock the deleteOperator method to do nothing
         doNothing().when(operatorService).deleteOperator(operatorId);
 
-        assertDoesNotThrow(() -> operatorController.removeOperator(operatorId));
+        // Call the controller method
+        operatorController.removeOperator(operatorId);
+
+        // Verify that deleteOperator was called with the correct argument
+        verify(operatorService).deleteOperator(operatorId);
     }
 
     @Test
@@ -37,16 +42,17 @@ class OperatorControllerTest {
 
         Operator existingOperator = new Operator();
         existingOperator.setIdOperateur(operatorId);
-        existingOperator.setFname("Original First Name");
-        existingOperator.setLname("Original Last Name");
 
+        // Mock the service methods
         when(operatorService.retrieveOperator(operatorId)).thenReturn(existingOperator);
         when(operatorService.updateOperator(any(Operator.class))).thenReturn(existingOperator);
 
+        // Call the controller method
         Operator updatedOperator = operatorController.updateOperator(operatorId, operatorDTO);
 
         assertNotNull(updatedOperator);
         assertEquals("Updated First Name", updatedOperator.getFname());
         assertEquals("Updated Last Name", updatedOperator.getLname());
     }
+
 }
