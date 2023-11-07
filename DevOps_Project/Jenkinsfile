@@ -17,28 +17,64 @@ pipeline {
                     {sh 'mvn package '}
                 }
             }
-        }
-          
-     stage('SONARQUBE') {
-            steps {
-                script {
-                    dir('DevOps_Project')
-                    {sh 'mvn sonar:sonar -Dsonar.login=squ_036b7cd4a30da2a71a44697198f2f661863e1458'}
-                }
-            }
-        }
-        stage('Nexus'){
+        } 
+        
+        stage('Junit/Mock') {
               steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn deploy -Dmaven.test.skip=true '}
+                    {sh 'mvn test '}
                 }
-            } 
+            }
         }
-
-       
- 
-
+            stage("Docker build") {
+            steps {
+                sh 'docker version'
+                sh 'docker build -t fatma721/devops_project .'
+                sh 'docker image list'
+                sh 'docker tag fatma721/devops_project fatma721/devops_project:latest'
+            }
+        }
+        stage("Docker Login") {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                }
+            }
+        }
+     //stage('SONARQUBE') {
+            //steps {
+                //script {
+                //    dir('DevOps_Project')
+              //      {sh 'mvn sonar:sonar -Dsonar.login=squ_036b7cd4a30da2a71a44697198f2f661863e1458'}
+            //    }
+          //  }
+        //}
+       // stage('Nexus'){
+         //     steps {
+           //      script {
+             //       dir('DevOps_Project')
+               //     {sh 'mvn deploy -Dmaven.test.skip=true '}
+                //}
+            //} 
+        //}
      
 }
+     //post {
+       // success {
+         //   emailext (
+           //     subject: 'Construction réussie',
+             //   body: 'La construction du projet a réussi. Tout est en ordre!',
+               // to: 'fatma.trabelsi@esprit.tn'
+            //)
+        //}
+        //failure {
+          //  emailext (
+            //    subject: 'Construction échouée',
+              //  body: 'La construction du projet a échoué. Veuillez vérifier les logs.',
+                //to: 'fatma.trabelsi@esprit.tn'
+            //)
+        //}
+       //}
+
 }
