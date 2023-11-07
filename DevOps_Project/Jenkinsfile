@@ -14,7 +14,7 @@ pipeline {
               steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn package -Dmaven.test.skip=true'}
+                    {sh 'mvn package '}
                 }
             }
         }
@@ -26,6 +26,14 @@ pipeline {
                     {sh 'mvn sonar:sonar -Dsonar.login=squ_036b7cd4a30da2a71a44697198f2f661863e1458'}
                 }
             }
+        }
+        stage('Nexus'){
+              steps {
+                 script {
+                    dir('DevOps_Project')
+                    {sh 'mvn deploy -Dmaven.test.skip=true '}
+                }
+            } 
         }
      
 }
