@@ -25,7 +25,7 @@ class OperatorControllerTest {
         doNothing().when(operatorService).deleteOperator(operatorId);
 
         // Call the controller method
-        operatorController.removeOperator(operatorId);
+        operatorController.removeOperator(1L);
 
         // Verify that deleteOperator was called with the correct argument
         verify(operatorService, times(1)).deleteOperator(operatorId);
@@ -41,7 +41,7 @@ class OperatorControllerTest {
         Operator existingOperator = createSampleOperatorWithId(operatorId);
 
         // Mock the service methods
-        when(operatorService.retrieveOperator(operatorId)).thenReturn(existingOperator);
+        when(operatorService.retrieveOperator(1L)).thenReturn(existingOperator);
         when(operatorService.updateOperator(any(Operator.class))).thenReturn(existingOperator);
 
         // Call the controller method
