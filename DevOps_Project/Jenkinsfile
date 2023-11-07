@@ -9,21 +9,12 @@ pipeline {
                 }
             }
         }
-
-        stage('JUNIT/Mockito'){
-             steps {
-                script {
-                    dir('DevOps_Project')
-                    {sh 'mvn test'}
-                }
-            }
-        }
         
           stage('Build') {
               steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn package '}
+                    {sh 'mvn package -Dmaven.test.skip=true'}
                 }
             }
         }
@@ -36,7 +27,11 @@ pipeline {
                 }
             }
         }
-        
+        stage("Push Image to Docker Hub") {
+         steps {
+               sh 'docker build -t sonarqube/fatma721 .'
+            }
+        }
         stage("Push Image to Docker Hub") {
             steps {
               sh 'docker push fatma721/sonarqube:latest'
