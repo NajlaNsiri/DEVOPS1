@@ -19,8 +19,9 @@ class OperatorControllerTest {
     private OperatorServiceImpl operatorService;
 
     @Test
-     void testRemoveOperator() {
+    void testRemoveOperator() {
         Long operatorId = 1L;
+        Operator sampleOperator = createSampleOperatorWithId(operatorId);
 
         // Mock the deleteOperator method to do nothing
         doNothing().when(operatorService).deleteOperator(operatorId);
@@ -33,14 +34,13 @@ class OperatorControllerTest {
     }
 
     @Test
-     void testUpdateOperator() {
+    void testUpdateOperator() {
         Long operatorId = 1L;
         OperatorDTO operatorDTO = new OperatorDTO();
         operatorDTO.setFname("Updated First Name");
         operatorDTO.setLname("Updated Last Name");
 
-        Operator existingOperator = new Operator();
-        existingOperator.setIdOperateur(operatorId);
+        Operator existingOperator = createSampleOperatorWithId(operatorId);
 
         // Mock the service methods
         when(operatorService.retrieveOperator(operatorId)).thenReturn(existingOperator);
@@ -52,5 +52,14 @@ class OperatorControllerTest {
         assertNotNull(updatedOperator);
         assertEquals("Updated First Name", updatedOperator.getFname());
         assertEquals("Updated Last Name", updatedOperator.getLname());
+    }
+
+    private Operator createSampleOperatorWithId(Long operatorId) {
+        Operator operator = new Operator();
+        operator.setIdOperateur(operatorId);
+        operator.setFname("John");
+        operator.setLname("Doe");
+        operator.setPassword("password123");
+        return operator;
     }
 }
