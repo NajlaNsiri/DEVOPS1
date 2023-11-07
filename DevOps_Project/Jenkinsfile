@@ -9,19 +9,19 @@ pipeline {
                 }
             }
         }
-        //stage('Junit/Mock') {
-          //    steps {
-            //     script {
-              //      dir('DevOps_Project')
-                //    {sh 'mvn test '}
-                //}
-            //}
-        //}
+        stage('Junit/Mock') {
+              steps {
+                 script {
+                    dir('DevOps_Project')
+                    {sh 'mvn test '}
+                }
+            }
+        }
           stage('Build') {
               steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn package -Dmaven.test.skip=true'}
+                    {sh 'mvn package '}
                 }
             }
         } 
