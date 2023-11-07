@@ -29,10 +29,11 @@ pipeline {
         
             stage("Docker build") {
             steps {
-                sh 'docker version'
+                dir('DevOps_Project')
+                { sh 'docker version'
                 sh 'docker build -t fatma721/devops_project .'
                 sh 'docker image list'
-                sh 'docker tag fatma721/devops_project fatma721/devops_project:latest'
+                sh 'docker tag fatma721/devops_project fatma721/devops_project:latest'}
             }
         }
         stage("Docker Login") {
