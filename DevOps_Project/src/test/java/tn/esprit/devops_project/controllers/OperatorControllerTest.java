@@ -10,7 +10,6 @@ import tn.esprit.devops_project.services.iservices.IOperatorService;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
 class OperatorControllerTest {
     @InjectMocks
     private OperatorController operatorController;
@@ -21,7 +20,6 @@ class OperatorControllerTest {
     @Test
     void testRemoveOperator() {
         Long operatorId = 1L;
-        Operator sampleOperator = createSampleOperatorWithId(operatorId);
 
         // Mock the deleteOperator method to do nothing
         doNothing().when(operatorService).deleteOperator(operatorId);
