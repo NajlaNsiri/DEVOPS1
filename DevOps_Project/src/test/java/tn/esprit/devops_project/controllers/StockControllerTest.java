@@ -3,6 +3,7 @@ package tn.esprit.devops_project.controllers;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.devops_project.dto.StockDTO;
 import tn.esprit.devops_project.entities.Stock;
 import tn.esprit.devops_project.services.StockServiceImpl;
@@ -11,13 +12,14 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class StockControllerTest {
-
     @InjectMocks
     private StockController stockController;
 
     @Mock
     private StockServiceImpl stockService;
+
 
 
     @Test
@@ -32,8 +34,8 @@ class StockControllerTest {
 
         Stock createdStock = stockController.createStock(stockDTO);
 
-        assertNotNull(createdStock); // Check if the createdStock is not null
-        assertEquals("Test Stock", createdStock.getTitle()); // Check if the title matches the expected value
+        assertNotNull(createdStock);
+        assertEquals("Test Stock", createdStock.getTitle());
     }
 
     @Test
@@ -46,8 +48,8 @@ class StockControllerTest {
 
         Stock retrievedStock = stockController.retrieveStock(stockId);
 
-        assertNotNull(retrievedStock); // Check if the retrievedStock is not null
-        assertEquals(stockId, retrievedStock.getIdStock()); // Check if the ID matches the expected value
+        assertNotNull(retrievedStock);
+        assertEquals(stockId, retrievedStock.getIdStock());
     }
 
     @Test
@@ -60,7 +62,7 @@ class StockControllerTest {
 
         List<Stock> retrievedStocks = stockController.retrieveAllStock();
 
-        assertNotNull(retrievedStocks); // Check if the retrievedStocks list is not null
-        assertEquals(2, retrievedStocks.size()); // Check if the list contains the expected number of elements
+        assertNotNull(retrievedStocks);
+        assertEquals(2, retrievedStocks.size());
     }
 }
