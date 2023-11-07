@@ -36,7 +36,21 @@ pipeline {
             } 
         }
 
-       
+       post {
+        success {
+            emailext (
+                subject: 'Construction réussie',
+                body: 'La construction du projet a réussi. Tout est en ordre!',
+                to: 'fatma.trabelsi@esprit.tn'
+            )
+        }
+        failure {
+            emailext (
+                subject: 'Construction échouée',
+                body: 'La construction du projet a échoué. Veuillez vérifier les logs.',
+                to: 'fatma.trabelsi@esprit.tn'
+            )
+        }
  
 
      
