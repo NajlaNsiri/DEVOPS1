@@ -35,8 +35,9 @@ pipeline {
                 }
             } 
         }
-
-       post {
+     
+}
+     post {
         success {
             emailext (
                 subject: 'Construction réussie',
@@ -53,6 +54,4 @@ pipeline {
         }
        }
 
-     
-}
 }
