@@ -10,6 +10,7 @@ import tn.esprit.devops_project.services.iservices.IOperatorService;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+
 class OperatorControllerTest {
 
     @InjectMocks
@@ -54,5 +55,6 @@ class OperatorControllerTest {
         assertEquals("Updated First Name", updatedOperator.getFname());
         assertEquals("Updated Last Name", updatedOperator.getLname());
     }
+
 
 }
