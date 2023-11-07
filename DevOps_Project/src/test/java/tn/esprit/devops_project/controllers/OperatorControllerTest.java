@@ -5,7 +5,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import tn.esprit.devops_project.dto.OperatorDTO;
 import tn.esprit.devops_project.entities.Operator;
-import tn.esprit.devops_project.services.OperatorServiceImpl;
+import tn.esprit.devops_project.services.iservices.IOperatorService;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +16,7 @@ class OperatorControllerTest {
     private OperatorController operatorController;
 
     @Mock
-    private OperatorServiceImpl operatorService;
+    private IOperatorService operatorService;
 
     @Test
     void testRemoveOperator() {
