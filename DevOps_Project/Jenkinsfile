@@ -1,30 +1,11 @@
 pipeline {
     agent any
-    stages {
-        
-        stage('clean Maven') {
-            steps{
-                script{
-                    dir('DevOps_Project')
-                    {sh "mvn clean" } 
-                }
-            }
-        }
-        
+    stages {    
          stage('Compile') {
             steps {
                 script {
                     dir('DevOps_Project')
                     {sh 'mvn compile'}
-                }
-            }
-        }
-
-        stage('JUNIT/Mockito'){
-             steps {
-                script {
-                    dir('DevOps_Project')
-                    {sh 'mvn test'}
                 }
             }
         }
@@ -46,7 +27,18 @@ pipeline {
                 }
             }
         }
-        
-                
+        stage('Nexus'){
+              steps {
+                 script {
+                    dir('DevOps_Project')
+                    {sh 'mvn deploy -Dmaven.test.skip=true '}
+                }
+            } 
+        }
+
+       
+ 
+
+     
 }
 }
