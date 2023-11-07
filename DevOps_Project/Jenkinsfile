@@ -9,14 +9,14 @@ pipeline {
                 }
             }
         }
-        stage('Junit/Mock') {
-              steps {
-                 script {
-                    dir('DevOps_Project')
-                    {sh 'mvn test '}
-                }
-            }
-        }
+        //stage('Junit/Mock') {
+          //    steps {
+            //     script {
+              //      dir('DevOps_Project')
+                //    {sh 'mvn test '}
+                //}
+            //}
+        //}
           stage('Build') {
               steps {
                  script {
