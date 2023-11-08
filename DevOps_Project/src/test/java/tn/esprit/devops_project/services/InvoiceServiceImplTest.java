@@ -3,6 +3,7 @@ package tn.esprit.devops_project.services;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.devops_project.entities.Invoice;
 import tn.esprit.devops_project.repositories.InvoiceRepository;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-
+@SpringBootTest
 class InvoiceServiceImplTest {
     @Mock
     private InvoiceRepository invoiceRepository;
