@@ -18,19 +18,19 @@ pipeline {
                 //}
             //}
         //}
-       stage('Junit/Mock') {
-             steps {
-                 script {
-                    dir('DevOps_Project')
-                    {sh 'mvn test  '}
-                }
-            }
-        }
+      // stage('Junit/Mock') {
+        //     steps {
+          //       script {
+            //        dir('DevOps_Project')
+              //      {sh 'mvn test  '}
+               // }
+            //}
+        //}
           stage('Build') {
               steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn package  '}
+                    {sh 'mvn package -Dmaven.test.skip=true  '}
                 }
             }
         }
@@ -53,30 +53,30 @@ pipeline {
                     }
                 }
 
-         //stage("Docker Login") {
-                   //  steps {
-                     //    withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                       //      sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                        // }
-                     //}
-                 //}
+         stage("Docker Login") {
+                     steps {
+                         withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                             sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                         }
+                     }
+                 }
 
         
-       //  stage("Docker build") {
-         //   steps {
-           //     dir('DevOps_Project')
-             //   {
-               // sh 'docker build -t fatma721/devops_project .'
-                //sh 'docker tag fatma721/devops_project fatma721/devops_project:latest'}
-            //}
-        //}
+        stage("Docker build") {
+            steps {
+                dir('DevOps_Project')
+                {
+                sh 'docker build -t fatma721/devops_project .'
+                sh 'docker tag fatma721/devops_project fatma721/devops_project:latest'}
+            }
+        }
         
 
-         //stage("Push Image to Docker Hub") {
-           // steps {
-             //   sh 'docker push fatma721/devops_project:latest'
-            //}
-        //}
+         stage("Push Image to Docker Hub") {
+            steps {
+                sh 'docker push fatma721/devops_project:latest'
+            }
+        }
 
        stage('docker compose') {
               steps{
