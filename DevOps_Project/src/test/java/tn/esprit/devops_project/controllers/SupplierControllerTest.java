@@ -18,7 +18,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
-@TestPropertySource(locations = "classpath:src-test-application.properties")
+@TestPropertySource(locations = "classpath:application.properties")
 class SupplierControllerTest {
 
     @InjectMocks
