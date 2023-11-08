@@ -9,6 +9,8 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api")
+
 public class OperatorController {
 
 	IOperatorService operatorService;
