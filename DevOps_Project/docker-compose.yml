@@ -2,30 +2,34 @@ version: "2.22.0"
 services:
 
   #cmd: docker-compose up
-
     db:
       image: "mysql:5.6"
       restart: unless-stopped
       environment:
       - MYSQL_ROOT_PASSWORD=
-      - MYSQL_DATABASE=timesheet_db
+      - MYSQL_DATABASE=devops
     ports:
       - 3308:3306
     volumes:
       - db:/var/lib/mysql
-    app-timesheet:
-      depends_on:
-        - mysqldb
-      image: nourbenmehrez/timesheet-devops:1.1.0
-      restart: on-failure
-      ports:
-        - 8082:8082
-      #environment:
 
+environment:
+        app:
+        build:
+        context: .
+        dockerfile: dockerfile
+        ports:
+          - "8089:8089"
+        depends_on:
+          - mysql
+        environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devops?createDatabaseIfNotExist=true
+        SPRING_DATASOURCE_USERNAME: root
+        SPRING_DATASOURCE_PASSWORD: root
 
-#  app:
-#    build: app
-#    restart: always
+        volumes:
+        mysql-data:
+
 
 #  web:
 #    build: web
