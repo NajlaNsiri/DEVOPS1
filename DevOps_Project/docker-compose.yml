@@ -33,20 +33,6 @@ services:
       }'
     stdin_open: true
     tty: true
-    networks:
-      - common-net
-
-  nexus:
-     image: sonatype/nexus3:latest
-     ports:
-     - "8081:8081"
-     volumes:
-       - nexus_data:/nexus-data
-     environment:
-            - NEXUS_CONTEXT=/
-     networks:
-        - common-net
-
 
 
 volumes:
