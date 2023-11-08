@@ -58,12 +58,12 @@ pipeline {
             //}
         //}
 
-        stage('docker compose') {
-              steps{
-                  dir('DevOps_Project')
-                  {sh 'docker compose up -d'}
-              }
-          }
+       // stage('docker compose') {
+         //     steps{
+           //       dir('DevOps_Project')
+             //     {sh 'docker compose up -d'}
+              //}
+          //}
      //stage('SONARQUBE') {
             //steps {
                 //script {
