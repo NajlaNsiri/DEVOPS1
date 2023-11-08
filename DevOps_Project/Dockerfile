@@ -9,3 +9,4 @@ RUN curl -L -o achat.jar -u $NEXUS_USERNAME:$NEXUS_PASSWORD $NEXUS_REPO_URL
 
 
 ENTRYPOINT ["java", "-jar", "DevOps_Project-2.1.jar"]
+# docker file
