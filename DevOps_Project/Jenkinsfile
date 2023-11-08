@@ -6,7 +6,7 @@ pipeline {
                 steps {
                     script {
                         dir('DevOps_Project')
-                        {sh 'mvn clean'}
+                        {sh 'mvn clean -Pprod'}
                     }
                 }
             }
@@ -30,7 +30,7 @@ pipeline {
               steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn package  '}
+                    {sh 'mvn package  -Pprod'}
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
                       steps {
                          script {
                             dir('DevOps_Project')
-                            {sh 'mvn deploy  '}
+                            {sh 'mvn deploy -Pprod '}
                         }
                     }
                 }
@@ -53,6 +53,14 @@ pipeline {
                     }
                 }
 
+         //stage("Docker Login") {
+                   //  steps {
+                     //    withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                       //      sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        // }
+                     //}
+                 //}
+
         
        //  stage("Docker build") {
          //   steps {
@@ -63,13 +71,7 @@ pipeline {
             //}
         //}
         
-        //stage("Docker Login") {
-          //  steps {
-            //    withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-              //      sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-               // }
-            //}
-        //}
+
          //stage("Push Image to Docker Hub") {
            // steps {
              //   sh 'docker push fatma721/devops_project:latest'
