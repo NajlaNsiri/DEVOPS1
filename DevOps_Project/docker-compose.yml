@@ -11,7 +11,7 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-  kaddemProject:
+  DevOps_Project:
     depends_on:
       - mysqldb
     image: fatma721/devops_project
