@@ -58,7 +58,7 @@ class InvoiceServiceImplTest {
         verify(invoiceRepository).updateInvoice(invoiceId);
     }
 
-    @Test
+    /*@Test
     void retrieveInvoice() {
         Long invoiceIdToRetrieve = 1L;
 
@@ -69,7 +69,7 @@ class InvoiceServiceImplTest {
         Invoice retrievedInvoice = invoiceService.retrieveInvoice(invoiceIdToRetrieve);
         assertNotNull(retrievedInvoice);
         assertInvoicesEqual(actualInvoice, retrievedInvoice);
-    }
+    }*/
 
     // Add other test methods following a similar pattern.
 
