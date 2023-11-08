@@ -13,6 +13,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name ="Supplier")
 public class Supplier {
 
 	private static final long serialVersionUID = 1L;

@@ -12,6 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "Stock")
 public class Stock  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

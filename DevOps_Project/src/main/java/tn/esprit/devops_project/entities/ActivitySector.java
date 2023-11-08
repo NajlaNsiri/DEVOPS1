@@ -13,6 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "ActivitySector")
 public class ActivitySector  {
         private static final long serialVersionUID = 1L;
         @Id
