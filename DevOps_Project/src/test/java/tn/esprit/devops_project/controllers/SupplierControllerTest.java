@@ -6,6 +6,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import tn.esprit.devops_project.dto.SupplierDTO;
 import tn.esprit.devops_project.entities.ActivitySector;
 import tn.esprit.devops_project.entities.Supplier;
@@ -17,6 +18,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
+@TestPropertySource(locations = "classpath:test-application.properties")
 class SupplierControllerTest {
 
     @InjectMocks
