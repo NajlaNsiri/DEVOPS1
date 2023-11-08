@@ -23,7 +23,7 @@ class StockControllerTest {
 
 
     @Test
-     void testCreateStock() {
+    void testCreateStock() {
         StockDTO stockDTO = new StockDTO();
         stockDTO.setTitle("Test Stock");
 
@@ -39,7 +39,7 @@ class StockControllerTest {
     }
 
     @Test
-     void testRetrieveStock() {
+    void testRetrieveStock() {
         Long stockId = 1L;
         Stock stock = new Stock();
         stock.setIdStock(stockId);
@@ -53,7 +53,7 @@ class StockControllerTest {
     }
 
     @Test
-     void testRetrieveAllStock() {
+    void testRetrieveAllStock() {
         List<Stock> stockList = new ArrayList<>();
         stockList.add(new Stock());
         stockList.add(new Stock());
