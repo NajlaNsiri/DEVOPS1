@@ -18,19 +18,20 @@ pipeline {
                 }
             }
         }
-       // stage('Junit/Mock') {
-         //     steps {
-           //      script {
-             ///       dir('DevOps_Project')
-                //    {sh 'mvn test -Ptest '}
-                //}
-            //}
-        //}
+
+       stage('Junit/Mock') {
+              steps {
+                 script {
+                    dir('DevOps_Project')
+                    {sh 'mvn test -Ptest '}
+                }
+            }
+        }
           stage('Build') {
               steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn package -Dmaven.skip.test=true '}
+                    {sh 'mvn package  '}
                 }
             }
         } 
@@ -58,12 +59,12 @@ pipeline {
             //}
         //}
 
-       stage('docker compose') {
-              steps{
-                  dir('DevOps_Project')
-                  {sh 'docker compose up -d'}
-              }
-          }
+      // stage('docker compose') {
+        //      steps{
+            //      dir('DevOps_Project')
+          //        {sh 'docker compose up -d'}
+              //}
+          //}
      //stage('SONARQUBE') {
             //steps {
                 //script {
