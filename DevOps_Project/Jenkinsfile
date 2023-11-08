@@ -1,6 +1,15 @@
 pipeline {
     agent any
-    stages {    
+    stages {
+
+    stage('Clean') {
+                steps {
+                    script {
+                        dir('DevOps_Project')
+                        {sh 'mvn clean'}
+                    }
+                }
+            }
          stage('Compile') {
             steps {
                 script {
