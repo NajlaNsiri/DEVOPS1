@@ -30,7 +30,7 @@ pipeline {
               steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn package '}
+                    {sh 'mvn package -Pprod '}
                 }
             }
         } 
