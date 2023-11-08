@@ -1,4 +1,4 @@
-/*package tn.esprit.devops_project.services;
+package tn.esprit.devops_project.services;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,7 +23,6 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 
 @ActiveProfiles("test")
-@TestPropertySource(locations="classpath:application.test.properties")
 @RunWith(SpringRunner.class)
 class InvoiceServiceImplTest {
     @Mock
@@ -192,4 +191,4 @@ class InvoiceServiceImplTest {
 
 
 
-}*/
+}
