@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   mysqldb:
-    image: mysql
+    image: mysql:5.7
     ports:
       - 3306:3306
     restart: unless-stopped
@@ -11,7 +11,11 @@ services:
       MYSQL_DATABASE: devops-projet
     volumes:
       - db:/var/lib/mysql
-  backend:
+    networks:
+          - common-net
+
+
+  backendserver:
     image: fatma721/devops_project
     ports:
       - 8082:8082
@@ -20,7 +24,7 @@ services:
       - mysqldb
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/devOps1?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+        "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/devops-projet?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
         "spring.jpa.show-sql" : true,
         "spring.jpa.hibernate.ddl-auto" : "update",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
@@ -29,6 +33,60 @@ services:
       }'
     stdin_open: true
     tty: true
+    networks:
+      - common-net
+
+  nexus:
+     image: sonatype/nexus3
+     ports:
+     - "8081:8081"
+     volumes:
+       - nexus_data:/nexus-data
+     environment:
+            - NEXUS_CONTEXT=/
+     networks:
+        - common-net
+
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - prometheus_config:/etc/prometheus
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - common-net
+
+  grafana:
+      image: grafana/grafana
+      volumes:
+        - grafana_data:/var/lib/grafana
+        - grafana_config:/etc/grafana
+        - grafana_plugins:/var/lib/grafana/plugins
+      ports:
+        - "3000:3000"
+      depends_on:
+        - prometheus
+      networks:
+        - common-net
+
+
 
 volumes:
   db:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  nexus_data:
+  prometheus_config:
+  prometheus_data:
+  grafana_data:
+  grafana_config:
+  grafana_plugins:
+
+networks:
+  common-net:
+     driver: bridge
+  sonarnet:
+      driver: bridge
