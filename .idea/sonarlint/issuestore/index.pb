@@ -42,8 +42,6 @@ w
 Gsrc/main/java/tn/esprit/devops_project/controllers/StockController.java,5/e/5e469466691a1a2e95158175485b0fb5b82f7bb2
 €
 Psrc/main/java/tn/esprit/devops_project/controllers/ActivitySectorController.java,8/c/8c2f3309553426ccf1d4ce36df0526afbd1c3f3b
-|
-Lsrc/test/java/tn/esprit/devops_project/services/OperatorServiceImplTest.java,1/e/1e0bd0a2bd88804ff57e5e5d2d66f6131a887d85
 z
 Jsrc/main/java/tn/esprit/devops_project/controllers/OperatorController.java,6/7/67992d43136f4954a9078b373b8a20c82e36ed05
 ^
@@ -98,3 +96,5 @@ H
 Lsrc/test/java/tn/esprit/devops_project/services/supplierserviceimpltest.java,b/e/bea4998625ded08d73bc68d3bd39c0f5bc8c761e
 |
 Lsrc/test/java/tn/esprit/devops_project/services/supplierserviceimplTest.java,5/d/5d882c45b86215e77899341c33bcbc8614ed6edc
+B
+docker-compose.yml,3/5/35b8c13cf2eb2a194eada000eb310d65aed53b2a
