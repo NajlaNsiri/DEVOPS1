@@ -15,7 +15,7 @@ public class ActivitySectorController {
     IActivitySector activitySectorService;
 
     @GetMapping("/activitySector")
-    List<ActivitySector> retrieveAllActivitySectors(){
+    public List<ActivitySector> retrieveAllActivitySectors(){
         return activitySectorService.retrieveAllActivitySectors();
     }
 
