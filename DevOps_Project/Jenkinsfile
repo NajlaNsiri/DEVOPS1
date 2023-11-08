@@ -27,22 +27,22 @@ pipeline {
         } 
         
         
-            stage("Docker build") {
-            steps {
-                dir('DevOps_Project')
-                { 
-                sh 'docker build -t fatma721/devops_project .'
-                sh 'docker tag fatma721/devops_project fatma721/devops_project:latest'}
-            }
-        }
+            //stage("Docker build") {
+            //steps {
+                //dir('DevOps_Project')
+                //{ 
+              //  sh 'docker build -t fatma721/devops_project .'
+            //    sh 'docker tag fatma721/devops_project fatma721/devops_project:latest'}
+          //  }
+        //}
         
-        stage("Docker Login") {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                }
-            }
-        }
+        //stage("Docker Login") {
+            //steps {
+                //withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+              //      sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+            //    }
+          //  }
+        //}
         // stage("Push Image to Docker Hub") {
           //  steps {
             //    sh 'docker push fatma721/devops_project:latest'
