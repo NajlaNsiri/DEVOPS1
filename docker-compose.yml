@@ -2,7 +2,7 @@ version: '3'
 services:
   mysqldb:
     image: mysql:latest
-    container_name: mysqldb  
+    container_name: mysqldb
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: devops
@@ -13,6 +13,7 @@ services:
 
   devops-app:
     image: yosrijedidi/devops_project:1.0
+    container_name: DevopsApp
     ports:
       - "8082:8082"
     depends_on:
