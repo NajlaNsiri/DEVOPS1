@@ -12,6 +12,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Stock implements Serializable {
     @Id
@@ -20,4 +21,8 @@ public class Stock implements Serializable {
     String title;
     @OneToMany(mappedBy = "stock")
     Set<Product> products;
+
+
+    public Stock(long l, String title) {
+    }
 }
