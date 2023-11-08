@@ -10,7 +10,6 @@ import org.springframework.test.context.ActiveProfiles;
 import tn.esprit.devops_project.dto.SupplierDTO;
 import tn.esprit.devops_project.entities.ActivitySector;
 import tn.esprit.devops_project.entities.Supplier;
-import tn.esprit.devops_project.entities.SupplierCategory;
 import tn.esprit.devops_project.services.iservices.IActivitySector;
 import tn.esprit.devops_project.services.iservices.ISupplierService;
 
