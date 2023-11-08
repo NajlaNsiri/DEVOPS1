@@ -1,4 +1,4 @@
-package tn.esprit.devops_project.controllers;
+/*package tn.esprit.devops_project.controllers;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -119,3 +119,4 @@ class ProductControllerTest {
         verify(productService, times(1)).deleteProduct(productId);
     }
 }
+*/

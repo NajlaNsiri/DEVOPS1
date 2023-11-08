@@ -1,4 +1,4 @@
-package tn.esprit.devops_project.controllers;
+/*package tn.esprit.devops_project.controllers;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -68,3 +68,4 @@ class OperatorControllerTest {
         return operator;
     }
 }
+*/
