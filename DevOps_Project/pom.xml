@@ -68,6 +68,19 @@
             <url>http://localhost:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>test</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
     <build>
         <plugins>
             <plugin>
@@ -84,4 +97,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
