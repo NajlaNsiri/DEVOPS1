@@ -1,0 +1,82 @@
+pipeline {
+    agent any
+
+    environment {
+        JACOCO_EXEC_FILE = "${WORKSPACE}/target/jacoco.exec"
+        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
+    }
+
+    stages {
+        stage('Checkout from GitHub') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: 'supplier']], doGenerateSubmoduleConfigurations: false, userRemoteConfigs: [[url: 'https://github.com/NajlaNsiri/DEVOPS1.git']]])
+            }
+        }
+
+        stage('Maven Clean and Compile') {
+            steps {
+                sh "mvn clean compile package"
+            }
+        }
+
+        stage('JUnit / Mockito + JaCoCo Report') {
+            steps {
+                sh "mvn test jacoco:report -Djacoco.destfile=${env.JACOCO_EXEC_FILE}"
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=jenkins'
+            }
+        }
+
+        stage('Check for Changes') {
+            steps {
+                script {
+                    def hasChanges = currentBuild.changeSets.size() > 0
+                    if (!hasChanges) {
+                        currentBuild.result = 'SUCCESS'
+                    }
+                }
+            }
+        }
+
+        stage('Build and Push Docker Image') {
+            when {
+                expression {
+                    // Execute this stage only if there are changes
+                    return currentBuild.changeSets.size() > 0
+                }
+            }
+            steps {
+                sh "docker login -u yosrijedidi -p \$DOCKER_HUB_CREDENTIALS"
+                sh "docker build -t yosrijedidi/devops_project:1.0 ."
+                sh "docker push yosrijedidi/devops_project:1.0"
+            }
+        }
+
+        stage('Launch Docker Compose') {
+            steps {
+                script {
+                    dir('/var/lib/jenkins/workspace/Devops/') {
+                        sh 'docker-compose -f docker-compose.yml up -d'
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                def jacocoReports = findFiles(glob: '**/target/jacoco.exec')
+                if (jacocoReports.size() > 0) {
+                    jacoco(execPattern: '**/target/jacoco.exec', classPattern: '**/target/classes', sourcePattern: '**/src/main/java', inclusionPattern: '**')
+                } else {
+                    echo 'No JaCoCo reports found!'
+                }
+            }
+        }
+    }
+}
