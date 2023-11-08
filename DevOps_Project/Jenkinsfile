@@ -6,7 +6,7 @@ pipeline {
                 steps {
                     script {
                         dir('DevOps_Project')
-                        {sh 'mvn clean -Pprod'}
+                        {sh 'mvn clean '}
                     }
                 }
             }
@@ -19,10 +19,10 @@ pipeline {
             //}
         //}
        stage('Junit/Mock') {
-              steps {
+             steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn test -Ptest '}
+                    {sh 'mvn test  '}
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
               steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn package  -Pprod'}
+                    {sh 'mvn package  '}
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
                       steps {
                          script {
                             dir('DevOps_Project')
-                            {sh 'mvn deploy -Pprod '}
+                            {sh 'mvn deploy  '}
                         }
                     }
                 }
