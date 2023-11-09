@@ -85,7 +85,7 @@ pipeline {
               }
           }
 
-        stage('docker compose'){
+        stage('Email error sending'){
             steps{
                 emailext attachLog: true, body: 'verifier votre travail !', subject: 'Jenkins failure build ', to: 'fatytrb@gmail.com'                 }
         }
