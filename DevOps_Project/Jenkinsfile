@@ -22,7 +22,7 @@ pipeline {
              steps {
                  script {
                     dir('DevOps_Project')
-                    {sh 'mvn test  '}
+                    {sh 'mvn test -Ptest '}
                 }
             }
         }
