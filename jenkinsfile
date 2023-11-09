@@ -19,7 +19,7 @@ pipeline {
             }
         }
 
-        stage('JUnit / Mockito + JaCoCo Report') {
+        stage('JUnit + Mockito Tests / JaCoCo Report') {
             steps {
                 sh "mvn test jacoco:report -Djacoco.destfile=${env.JACOCO_EXEC_FILE}"
             }
