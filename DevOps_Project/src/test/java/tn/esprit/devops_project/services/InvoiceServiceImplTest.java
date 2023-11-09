@@ -1,8 +1,10 @@
 package tn.esprit.devops_project.services;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
@@ -23,7 +25,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 
 @ActiveProfiles("test")
-@RunWith(SpringRunner.class)
+@ExtendWith(MockitoExtension.class)
 class InvoiceServiceImplTest {
     @Mock
     private InvoiceRepository invoiceRepository;
