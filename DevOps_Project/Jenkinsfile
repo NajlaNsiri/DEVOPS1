@@ -84,7 +84,7 @@ pipeline {
             }
         }
 
-        stage('Email error sending') {
+        stage('Email sending') {
             steps {
                 emailext(attachLog: true, body: 'jenkins build failed, check your work!', subject: 'Jenkins build', to: 'fatytrb@gmail.com')
             }
