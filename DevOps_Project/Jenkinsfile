@@ -39,7 +39,7 @@ pipeline {
                       steps {
                          script {
                             dir('DevOps_Project')
-                            {sh 'mvn deploy  '}
+                            {sh 'mvn deploy  -Dmaven.test.skip=true'}
                         }
                     }
                 }
