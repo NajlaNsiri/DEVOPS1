@@ -11,8 +11,7 @@ services:
       MYSQL_DATABASE: devops-projet
     volumes:
       - db:/var/lib/mysql
-    networks:
-          - common-net
+   
 
 
   backendserver:
