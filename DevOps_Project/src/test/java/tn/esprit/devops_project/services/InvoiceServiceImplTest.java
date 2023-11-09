@@ -1,4 +1,4 @@
-/*package tn.esprit.devops_project.services;
+package tn.esprit.devops_project.services;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -39,12 +39,15 @@ class InvoiceServiceImplTest {
     void retrieveAllInvoices() {
         List<Invoice> actualInvoices = createSampleInvoices();
 
+        // Mock the behavior of the InvoiceRepository to return the actual invoices
         when(invoiceRepository.findAll()).thenReturn(actualInvoices);
 
         List<Invoice> invoices = invoiceService.retrieveAllInvoices();
         assertNotNull(invoices);
         assertEquals(actualInvoices.size(), invoices.size());
+        // You can add more specific assertions if needed.
     }
+
 
     @Test
     void cancelInvoice() {
@@ -192,4 +195,4 @@ class InvoiceServiceImplTest {
 
 
 
-}*/
+}

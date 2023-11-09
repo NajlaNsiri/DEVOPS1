@@ -1,94 +1,101 @@
 pipeline {
     agent any
     stages {
-
-    stage('Clean') {
-                steps {
-                    script {
-                        dir('DevOps_Project')
-                        {sh 'mvn clean '}
+        stage('Clean') {
+            steps {
+                script {
+                    dir('DevOps_Project') {
+                        sh 'mvn clean'
                     }
                 }
             }
-      //   stage('Compile') {
-        //    steps {
-          //      script {
-            //        dir('DevOps_Project')
-              //      {sh 'mvn compile'}
-                //}
-            //}
-        //}
-       stage('Junit/Mock') {
-             steps {
-                 script {
-                    dir('DevOps_Project')
-                    {sh 'mvn test -Ptest '}
+        }
+
+        stage('Compile') {
+            steps {
+                script {
+                    dir('DevOps_Project') {
+                        sh 'mvn compile'
+                    }
                 }
             }
         }
-         // stage('Build') {
-              //steps {
-                 //script {
-                //    dir('DevOps_Project')
-              //      {sh 'mvn package -Dmaven.test.skip=true  '}
-            //    }
-          //  }
-        //}
 
-        //stage('Nexus'){
-                      //steps {
-                       //  script {
-                     //       dir('DevOps_Project')
-                   //         {sh 'mvn deploy  -Dmaven.test.skip=true'}
-                 //       }
-               //     }
-             //   }
-
-          //stage('SONARQUBE') {
-                    //steps {
-                     //   script {
-                   //         dir('DevOps_Project')
-                 //          {sh 'mvn sonar:sonar -Dsonar.login=squ_036b7cd4a30da2a71a44697198f2f661863e1458'}
-               //         }
-             //       }
-           //     }
-
-         //stage("Docker Login") {
-                     //steps {
-                       //  withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                     //        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                   //      }
-                 //    }
-               //  }
-
-        
-       // stage("Docker build") {
-          //  steps {
-                //dir('DevOps_Project')
-               // {
-             //   sh 'docker build -t fatma721/devops_project .'
-           //     sh 'docker tag fatma721/devops_project fatma721/devops_project:latest'}
-         //   }
-       // }
-        
-
-         //stage("Push Image to Docker Hub") {
-           // steps {
-             //   sh 'docker push fatma721/devops_project:latest'
+       // stage('Junit/Mock') {
+         //   steps {
+           //     script {
+             //       dir('DevOps_Project') {
+               //         sh 'mvn test -Ptest'
+                 //   }
+                //}
             //}
         //}
-       //  stage('Email error sending'){
-         //   steps{
-           //        emailext(attachLog: true, body: 'jenkins build failed , check your work !', subject: 'Jenkins build ', to: 'fatytrb@gmail.com'   )
-             //      }
-               //     }
-      // stage('docker compose') {
-        //      steps{
-          //        dir('DevOps_Project')
-            //     {sh 'docker compose up -d'}
-             // }
-          //}
 
+        stage('Build') {
+            steps {
+                script {
+                    dir('DevOps_Project') {
+                        sh 'mvn package -Dmaven.test.skip=true'
+                    }
+                }
+            }
+        }
 
-}
+        stage('Nexus') {
+            steps {
+                script {
+                    dir('DevOps_Project') {
+                        sh 'mvn deploy -Dmaven.test.skip=true'
+                    }
+                }
+            }
+        }
+
+        stage('SONARQUBE') {
+            steps {
+                script {
+                    dir('DevOps_Project') {
+                        sh 'mvn sonar:sonar -Dsonar.login=squ_036b7cd4a30da2a71a44697198f2f661863e1458'
+                    }
+                }
+            }
+        }
+
+        stage("Docker Login") {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'DOCKER', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                }
+            }
+        }
+
+        stage("Docker build") {
+            steps {
+                dir('DevOps_Project') {
+                    sh 'docker build -t fatma721/devops_project .'
+                    sh 'docker tag fatma721/devops_project fatma721/devops_project:latest'
+                }
+            }
+        }
+
+        stage("Push Image to Docker Hub") {
+            steps {
+                sh 'docker push fatma721/devops_project:latest'
+            }
+        }
+
+        stage('Email error sending') {
+            steps {
+                emailext(attachLog: true, body: 'jenkins build failed, check your work!', subject: 'Jenkins build', to: 'fatytrb@gmail.com')
+            }
+        }
+
+        stage('docker compose') {
+            steps {
+                dir('DevOps_Project') {
+                    sh 'docker compose up -d'
+                }
+            }
+        }
+    }
 }
