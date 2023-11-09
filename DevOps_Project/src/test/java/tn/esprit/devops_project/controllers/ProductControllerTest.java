@@ -6,8 +6,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import tn.esprit.devops_project.dto.ProductDTO;
@@ -22,7 +24,7 @@ import java.util.List;
 
 @ActiveProfiles("test")
 @SpringBootTest
-
+@ExtendWith(MockitoExtension.class)
 class ProductControllerTest {
 
     @InjectMocks

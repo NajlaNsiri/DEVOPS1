@@ -1,9 +1,11 @@
 package tn.esprit.devops_project.controllers;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import tn.esprit.devops_project.dto.OperatorDTO;
@@ -15,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ActiveProfiles("test")
-
+@ExtendWith(MockitoExtension.class)
 class OperatorControllerTest {
 
     @InjectMocks
