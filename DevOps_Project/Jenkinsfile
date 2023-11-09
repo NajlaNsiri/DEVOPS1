@@ -93,7 +93,7 @@ pipeline {
         stage('docker compose') {
             steps {
                 dir('DevOps_Project') {
-                    sh 'docker compose up -d'
+                    sh 'docker compose up -d '
                 }
             }
         }
