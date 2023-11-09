@@ -77,7 +77,10 @@ pipeline {
              //   sh 'docker push fatma721/devops_project:latest'
             //}
         //}
-
+         stage('Email error sending'){
+            steps{
+                emailext attachLog: true, body: 'verifier votre travail !', subject: 'Jenkins failure build ', to: 'fatytrb@gmail.com'                 }
+        }
        stage('docker compose') {
               steps{
                   dir('DevOps_Project')
@@ -85,9 +88,6 @@ pipeline {
               }
           }
 
-        stage('Email error sending'){
-            steps{
-                emailext attachLog: true, body: 'verifier votre travail !', subject: 'Jenkins failure build ', to: 'fatytrb@gmail.com'                 }
-        }
+
 }
 }
