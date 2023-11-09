@@ -79,7 +79,7 @@ pipeline {
         //}
          stage('Email error sending'){
             steps{
-                    mail bcc: '', body: 'verifier votre code ', cc: 'fatma.trabelsi@esprit.tn', from: '', replyTo: '', subject: 'Jenkins build failure', to: 'fatytrb@gmail.com'        }
+                    emailext attachLog: true: '', body: 'verifier votre code ', cc: 'fatma.trabelsi@esprit.tn', from: '', replyTo: '', subject: 'Jenkins build failure', to: 'fatytrb@gmail.com'        }
                     }
       // stage('docker compose') {
         //      steps{
