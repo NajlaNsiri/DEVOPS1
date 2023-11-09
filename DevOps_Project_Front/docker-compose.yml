@@ -12,19 +12,7 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-  app:
-    build:
-      context: .
-      dockerfile: dockerfile
-    ports:
-      - "8089:8089"
-    depends_on:
-      - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/devops1?createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD:
-
+  
 volumes:
-  db:
+ 
   mysql-data:
